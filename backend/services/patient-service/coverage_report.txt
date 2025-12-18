@@ -1,0 +1,121 @@
+
+> patient-service@1.0.0 test
+> jest --coverage
+
+PASS src/middleware/errorHandler.test.ts (8.968 s)
+FAIL src/services/PatientService.test.ts
+  ● Test suite failed to run
+
+    [96msrc/services/PatientService.test.ts[0m:[93m29[0m:[93m57[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ userId: string; firstName: string; lastName: string; dateOfBirth: string; phone: string; }' is not assignable to parameter of type '{ userId: string; firstName: string; lastName: string; dateOfBirth: string; phone: string; bloodGroup: string; address?: string | undefined; emergencyContact?: string | undefined; emergencyPhone?: string | undefined; insuranceProvider?: string | undefined; insurancePolicyNumber?: string | undefined; medicalHistory?:...'.
+      Property 'bloodGroup' is missing in type '{ userId: string; firstName: string; lastName: string; dateOfBirth: string; phone: string; }' but required in type '{ userId: string; firstName: string; lastName: string; dateOfBirth: string; phone: string; bloodGroup: string; address?: string | undefined; emergencyContact?: string | undefined; emergencyPhone?: string | undefined; insuranceProvider?: string | undefined; insurancePolicyNumber?: string | undefined; medicalHistory?:...'.
+
+    [7m29[0m       const result = await patientService.createPatient(createData);
+    [7m  [0m [91m                                                        ~~~~~~~~~~[0m
+
+      [96msrc/types/dtos.ts[0m:[93m16[0m:[93m3[0m
+        [7m16[0m   bloodGroup: z.string().default('O+'),
+        [7m  [0m [96m  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+        'bloodGroup' is declared here.
+    [96msrc/services/PatientService.test.ts[0m:[93m39[0m:[93m49[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ userId: string; firstName: string; lastName: string; dateOfBirth: string; phone: string; }' is not assignable to parameter of type '{ userId: string; firstName: string; lastName: string; dateOfBirth: string; phone: string; bloodGroup: string; address?: string | undefined; emergencyContact?: string | undefined; emergencyPhone?: string | undefined; insuranceProvider?: string | undefined; insurancePolicyNumber?: string | undefined; medicalHistory?:...'.
+      Property 'bloodGroup' is missing in type '{ userId: string; firstName: string; lastName: string; dateOfBirth: string; phone: string; }' but required in type '{ userId: string; firstName: string; lastName: string; dateOfBirth: string; phone: string; bloodGroup: string; address?: string | undefined; emergencyContact?: string | undefined; emergencyPhone?: string | undefined; insuranceProvider?: string | undefined; insurancePolicyNumber?: string | undefined; medicalHistory?:...'.
+
+    [7m39[0m       await expect(patientService.createPatient(createData)).rejects.toThrow('PATIENT_ALREADY_EXISTS');
+    [7m  [0m [91m                                                ~~~~~~~~~~[0m
+
+      [96msrc/types/dtos.ts[0m:[93m16[0m:[93m3[0m
+        [7m16[0m   bloodGroup: z.string().default('O+'),
+        [7m  [0m [96m  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+        'bloodGroup' is declared here.
+
+PASS src/app.test.ts (11.815 s)
+FAIL src/middleware/auth.test.ts
+  ● Test suite failed to run
+
+    ZodError: [
+      {
+        "code": "invalid_type",
+        "expected": "string",
+        "received": "undefined",
+        "path": [
+          "authService",
+          "url"
+        ],
+        "message": "Required"
+      }
+    ]
+
+      27 | });
+      28 |
+    > 29 | export const config = configSchema.parse({
+         |                                    ^
+      30 |   env: process.env.NODE_ENV,
+      31 |   port: process.env.PORT,
+      32 |   database: {
+
+      at Object.get error [as error] (node_modules/zod/v3/types.cjs:45:31)
+      at ZodObject.parse (node_modules/zod/v3/types.cjs:120:22)
+      at Object.<anonymous> (src/config/index.ts:29:36)
+      at Object.require (src/middleware/auth.ts:3:1)
+      at Object.<anonymous> (src/middleware/auth.test.ts:1:1)
+
+PASS src/middleware/validation.test.ts (11.91 s)
+PASS src/repositories/PatientRepository.test.ts (12.151 s)
+FAIL src/routes/patient.test.ts
+  ● Test suite failed to run
+
+    ZodError: [
+      {
+        "code": "invalid_type",
+        "expected": "string",
+        "received": "undefined",
+        "path": [
+          "authService",
+          "url"
+        ],
+        "message": "Required"
+      }
+    ]
+
+      27 | });
+      28 |
+    > 29 | export const config = configSchema.parse({
+         |                                    ^
+      30 |   env: process.env.NODE_ENV,
+      31 |   port: process.env.PORT,
+      32 |   database: {
+
+      at Object.get error [as error] (node_modules/zod/v3/types.cjs:45:31)
+      at ZodObject.parse (node_modules/zod/v3/types.cjs:120:22)
+      at Object.<anonymous> (src/config/index.ts:29:36)
+      at Object.<anonymous> (src/config/database.ts:2:1)
+      at Object.require (src/repositories/PatientRepository.ts:2:1)
+      at Object.require (src/services/PatientService.ts:1:1)
+      at Object.require (src/routes/patient.ts:2:1)
+      at Object.<anonymous> (src/routes/patient.test.ts:3:1)
+
+-----------------------|---------|----------|---------|---------|-------------------
+File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------|---------|----------|---------|---------|-------------------
+All files              |   34.84 |    26.66 |    42.3 |   34.84 |                   
+ src                   |     100 |      100 |     100 |     100 |                   
+  app.ts               |     100 |      100 |     100 |     100 |                   
+ src/middleware        |      50 |    44.44 |      50 |      50 |                   
+  auth.ts              |       0 |        0 |       0 |       0 | 2-80              
+  errorHandler.ts      |     100 |      100 |     100 |     100 |                   
+  validation.ts        |     100 |      100 |     100 |     100 |                   
+ src/repositories      |     100 |      100 |     100 |     100 |                   
+  PatientRepository.ts |     100 |      100 |     100 |     100 |                   
+ src/routes            |       0 |      100 |       0 |       0 |                   
+  patient.ts           |       0 |      100 |       0 |       0 | 1-94              
+ src/services          |       0 |        0 |       0 |       0 |                   
+  PatientService.ts    |       0 |        0 |       0 |       0 | 1-68              
+-----------------------|---------|----------|---------|---------|-------------------
+Jest: "global" coverage threshold for statements (100%) not met: 34.84%
+Jest: "global" coverage threshold for branches (100%) not met: 26.66%
+Jest: "global" coverage threshold for lines (100%) not met: 34.84%
+Jest: "global" coverage threshold for functions (100%) not met: 42.3%
+Test Suites: 3 failed, 4 passed, 7 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        21.521 s
+Ran all test suites.

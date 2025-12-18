@@ -105,7 +105,7 @@ export class AuthService {
 
   private generateToken(userId: string, email: string, role: UserRole): string {
     return jwt.sign({ userId, email, role }, config.jwt.secret, {
-      expiresIn: config.jwt.expiresIn,
+      expiresIn: config.jwt.expiresIn as any,
     });
   }
 }

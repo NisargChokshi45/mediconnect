@@ -7,6 +7,8 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "typeorm": "typeorm-ts-node-commonjs",
     "db:migrate": "npm run typeorm migration:run -- -d src/config/database.ts"
   },
@@ -30,6 +32,12 @@
     "@types/pg": "^8.10.9",
     "typescript": "^5.3.3",
     "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "supertest": "^6.3.3",
+    "@types/jest": "^29.5.11",
+    "@types/supertest": "^2.0.16",
+    "@types/opossum": "^8.1.5"
   }
 }

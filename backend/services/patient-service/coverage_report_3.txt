@@ -1,0 +1,70 @@
+
+> patient-service@1.0.0 test
+> jest --coverage
+
+PASS src/middleware/errorHandler.test.ts (6.09 s)
+PASS src/middleware/validation.test.ts (6.122 s)
+PASS src/middleware/auth.test.ts (6.848 s)
+PASS src/repositories/PatientRepository.test.ts (6.939 s)
+PASS src/services/PatientService.test.ts (7.273 s)
+PASS src/app.test.ts (7.3 s)
+FAIL src/routes/patient.test.ts (8.143 s)
+  ● Patient Routes › POST /patients › should create a patient and return 201
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 400
+
+      48 |         });
+      49 |
+    > 50 |       expect(response.status).toBe(201);
+         |                               ^
+      51 |       expect(response.body.data).toEqual(mockPatient);
+      52 |     });
+      53 |
+
+      at Object.<anonymous> (src/routes/patient.test.ts:50:31)
+
+  ● Patient Routes › POST /patients › should handle errors
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 409
+    Received: 400
+
+      65 |         });
+      66 |
+    > 67 |       expect(response.status).toBe(409);
+         |                               ^
+      68 |     });
+      69 |   });
+      70 |
+
+      at Object.<anonymous> (src/routes/patient.test.ts:67:31)
+
+-----------------------|---------|----------|---------|---------|-------------------
+File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------|---------|----------|---------|---------|-------------------
+All files              |   96.21 |      100 |   96.15 |   96.21 |                   
+ src                   |     100 |      100 |     100 |     100 |                   
+  app.ts               |     100 |      100 |     100 |     100 |                   
+ src/middleware        |     100 |      100 |     100 |     100 |                   
+  auth.ts              |     100 |      100 |     100 |     100 |                   
+  errorHandler.ts      |     100 |      100 |     100 |     100 |                   
+  validation.ts        |     100 |      100 |     100 |     100 |                   
+ src/repositories      |     100 |      100 |     100 |     100 |                   
+  PatientRepository.ts |     100 |      100 |     100 |     100 |                   
+ src/routes            |   86.84 |      100 |      80 |   86.84 |                   
+  patient.ts           |   86.84 |      100 |      80 |   86.84 | 19-27             
+ src/services          |     100 |      100 |     100 |     100 |                   
+  PatientService.ts    |     100 |      100 |     100 |     100 |                   
+-----------------------|---------|----------|---------|---------|-------------------
+Jest: "global" coverage threshold for statements (100%) not met: 96.21%
+Jest: "global" coverage threshold for lines (100%) not met: 96.21%
+Jest: "global" coverage threshold for functions (100%) not met: 96.15%
+Test Suites: 1 failed, 6 passed, 7 total
+Tests:       2 failed, 42 passed, 44 total
+Snapshots:   0 total
+Time:        9.399 s
+Ran all test suites.

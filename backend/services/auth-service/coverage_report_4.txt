@@ -1,0 +1,32 @@
+
+> auth-service@1.0.0 test
+> jest --coverage
+
+PASS src/middleware/validation.test.ts
+PASS src/services/AuthService.test.ts (5.472 s)
+PASS src/middleware/errorHandler.test.ts (5.651 s)
+PASS src/app.test.ts (5.985 s)
+PASS src/repositories/UserRepository.test.ts (6.106 s)
+PASS src/routes/auth.test.ts (8.179 s)
+--------------------|---------|----------|---------|---------|-------------------
+File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------|---------|----------|---------|---------|-------------------
+All files           |     100 |      100 |     100 |     100 |                   
+ src                |     100 |      100 |     100 |     100 |                   
+  app.ts            |     100 |      100 |     100 |     100 |                   
+ src/middleware     |     100 |      100 |     100 |     100 |                   
+  errorHandler.ts   |     100 |      100 |     100 |     100 |                   
+  validation.ts     |     100 |      100 |     100 |     100 |                   
+ src/repositories   |     100 |      100 |     100 |     100 |                   
+  UserRepository.ts |     100 |      100 |     100 |     100 |                   
+ src/routes         |     100 |      100 |     100 |     100 |                   
+  auth.ts           |     100 |      100 |     100 |     100 |                   
+ src/services       |     100 |      100 |     100 |     100 |                   
+  AuthService.ts    |     100 |      100 |     100 |     100 |                   
+--------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 6 passed, 6 total
+Tests:       36 passed, 36 total
+Snapshots:   0 total
+Time:        9.253 s
+Ran all test suites.

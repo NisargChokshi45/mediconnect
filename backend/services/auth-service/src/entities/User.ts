@@ -1,8 +1,6 @@
 import {
   Entity,
-  PrimaryG
-
-eneratedColumn,
+  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,

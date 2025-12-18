@@ -11,7 +11,7 @@ interface InsuranceVerificationResult {
   coverageDetails?: string;
 }
 
-async function verify InsuranceEligibility(
+async function verifyInsuranceEligibility(
   patientId: string,
   insurancePolicyNumber: string
 ): Promise<InsuranceVerificationResult> {

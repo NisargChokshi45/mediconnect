@@ -1,0 +1,35 @@
+
+> auth-service@1.0.0 test
+> jest --coverage
+
+PASS src/middleware/errorHandler.test.ts (5.186 s)
+PASS src/middleware/validation.test.ts (5.43 s)
+PASS src/services/AuthService.test.ts (5.941 s)
+PASS src/app.test.ts (5.997 s)
+PASS src/repositories/UserRepository.test.ts (6.03 s)
+PASS src/routes/auth.test.ts (7.023 s)
+--------------------|---------|----------|---------|---------|-------------------
+File                | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------|---------|----------|---------|---------|-------------------
+All files           |   99.15 |    93.75 |     100 |   99.15 |                   
+ src                |     100 |      100 |     100 |     100 |                   
+  app.ts            |     100 |      100 |     100 |     100 |                   
+ src/middleware     |     100 |    85.71 |     100 |     100 |                   
+  errorHandler.ts   |     100 |    83.33 |     100 |     100 | 10                
+  validation.ts     |     100 |      100 |     100 |     100 |                   
+ src/repositories   |     100 |      100 |     100 |     100 |                   
+  UserRepository.ts |     100 |      100 |     100 |     100 |                   
+ src/routes         |   96.55 |      100 |     100 |   96.55 |                   
+  auth.ts           |   96.55 |      100 |     100 |   96.55 | 35                
+ src/services       |     100 |      100 |     100 |     100 |                   
+  AuthService.ts    |     100 |      100 |     100 |     100 |                   
+--------------------|---------|----------|---------|---------|-------------------
+Jest: "global" coverage threshold for statements (100%) not met: 99.15%
+Jest: "global" coverage threshold for branches (100%) not met: 93.75%
+Jest: "global" coverage threshold for lines (100%) not met: 99.15%
+
+Test Suites: 6 passed, 6 total
+Tests:       34 passed, 34 total
+Snapshots:   0 total
+Time:        7.955 s, estimated 8 s
+Ran all test suites.
