@@ -1,15 +1,10 @@
-import 'reflect-metadata';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
-import { Doctor } from './Doctor';
-import { Appointment } from './Appointment';
 
 @Entity('notes')
 export class Note {
@@ -19,29 +14,31 @@ export class Note {
   @Column()
   appointmentId: string;
 
-  @ManyToOne(() => Appointment, (appointment) => appointment.notes, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'appointmentId' })
-  appointment: Appointment;
-
   @Column()
   doctorId: string;
 
-  @ManyToOne(() => Doctor, (doctor) => doctor.notes)
-  @JoinColumn({ name: 'doctorId' })
-  doctor: Doctor;
-
+  // SOAP Format - Subjective
   @Column({ type: 'text' })
   chiefComplaint: string;
 
   @Column({ type: 'text', nullable: true })
   historyOfPresentIllness: string;
 
+  // SOAP Format - Objective
   @Column({ type: 'text', nullable: true })
   physicalExamination: string;
 
   @Column({ type: 'text', nullable: true })
+  vitalSigns: string;
+
+  // SOAP Format - Assessment
+  @Column({ type: 'text', nullable: true })
   diagnosis: string;
 
+  @Column({ type: 'text', nullable: true })
+  differentialDiagnosis: string;
+
+  // SOAP Format - Plan
   @Column({ type: 'text', nullable: true })
   treatmentPlan: string;
 
@@ -50,6 +47,9 @@ export class Note {
 
   @Column({ type: 'text', nullable: true })
   followUpInstructions: string;
+
+  @Column({ type: 'text', nullable: true })
+  additionalNotes: string;
 
   @CreateDateColumn()
   createdAt: Date;

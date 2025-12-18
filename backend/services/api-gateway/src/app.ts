@@ -7,6 +7,9 @@ import { createLogger } from '../../../shared/logger';
 import { config } from './config';
 import authRoutes from './routes/auth';
 import patientRoutes from './routes/patient';
+import doctorRoutes from './routes/doctor';
+import appointmentRoutes from './routes/appointment';
+import notesRoutes from './routes/notes';
 import { openApiSpec } from './docs/openapi';
 
 const logger = createLogger('api-gateway', config.logging.level);
@@ -30,6 +33,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
 // Routes - proxy to microservices
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
+app.use('/api/doctors', doctorRoutes);
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/notes', notesRoutes);
 // Add more routes as services are implemented
 
 // Error handling

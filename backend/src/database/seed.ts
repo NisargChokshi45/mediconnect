@@ -122,7 +122,7 @@ async function seed() {
     nextWeek.setDate(nextWeek.getDate() + 7);
     nextWeek.setHours(14, 0, 0, 0);
 
-    const appointment1 = await appointmentRepo.save({
+    await appointmentRepo.save({
       patientId: patient1.id,
       doctorId: doctor1.id,
       scheduledAt: tomorrow,
@@ -132,7 +132,7 @@ async function seed() {
       insuranceVerified: true,
     });
 
-    const appointment2 = await appointmentRepo.save({
+    await appointmentRepo.save({
       patientId: patient2.id,
       doctorId: doctor2.id,
       scheduledAt: nextWeek,

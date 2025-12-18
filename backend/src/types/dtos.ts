@@ -29,10 +29,13 @@ export const CreatePatientDtoSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  phone: z.string().regex(/^[\d\s\-\+\(\)]+$/),
+  phone: z.string().regex(/^[\d\s\-+()]+$/),
   address: z.string().optional(),
   emergencyContact: z.string().optional(),
-  emergencyPhone: z.string().regex(/^[\d\s\-\+\(\)]+$/).optional(),
+  emergencyPhone: z
+    .string()
+    .regex(/^[\d\s\-+()]+$/)
+    .optional(),
   insuranceProvider: z.string().optional(),
   insurancePolicyNumber: z.string().optional(),
 });
