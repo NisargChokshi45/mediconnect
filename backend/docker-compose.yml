@@ -1,0 +1,200 @@
+version: '3.8'
+
+services:
+  # Databases
+  postgres-auth:
+    image: postgres:16-alpine
+    container_name: mediconnect-postgres-auth
+    environment:
+      POSTGRES_USER: mediconnect
+      POSTGRES_PASSWORD: mediconnect123
+      POSTGRES_DB: mediconnect_auth
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-auth-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediconnect"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-patient:
+    image: postgres:16-alpine
+    container_name: mediconnect-postgres-patient
+    environment:
+      POSTGRES_USER: mediconnect
+      POSTGRES_PASSWORD: mediconnect123
+      POSTGRES_DB: mediconnect_patient
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-patient-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediconnect"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-doctor:
+    image: postgres:16-alpine
+    container_name: mediconnect-postgres-doctor
+    environment:
+      POSTGRES_USER: mediconnect
+      POSTGRES_PASSWORD: mediconnect123
+      POSTGRES_DB: mediconnect_doctor
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-doctor-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediconnect"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-appointment:
+    image: postgres:16-alpine
+    container_name: mediconnect-postgres-appointment
+    environment:
+      POSTGRES_USER: mediconnect
+      POSTGRES_PASSWORD: mediconnect123
+      POSTGRES_DB: mediconnect_appointment
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres-appointment-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediconnect"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-notes:
+    image: postgres:16-alpine
+    container_name: mediconnect-postgres-notes
+    environment:
+      POSTGRES_USER: mediconnect
+      POSTGRES_PASSWORD: mediconnect123
+      POSTGRES_DB: mediconnect_notes
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres-notes-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediconnect"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Observability - Jaeger for distributed tracing
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: mediconnect-jaeger
+    ports:
+      - "16686:16686" # Jaeger UI
+      - "14268:14268" # Accept jaeger.thrift directly from clients
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+
+  # Microservices
+  auth-service:
+    build:
+      context: ./services/auth-service
+      dockerfile: Dockerfile
+    container_name: mediconnect-auth-service
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - DB_HOST=postgres-auth
+      - DB_PORT=5432
+      - DB_USERNAME=mediconnect
+      - DB_PASSWORD=mediconnect123
+      - DB_NAME=mediconnect_auth
+      - DB_SSL=false
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production-min-32-chars
+      - JWT_EXPIRES_IN=24h
+      - JAEGER_ENDPOINT=http://jaeger:14268/api/traces
+      - OTEL_SERVICE_NAME=auth-service
+      - LOG_LEVEL=info
+    depends_on:
+      postgres-auth:
+        condition: service_healthy
+      jaeger:
+        condition: service_started
+    volumes:
+      - ./services/auth-service:/app
+      - /app/node_modules
+    command: npm run dev
+
+  patient-service:
+    build:
+      context: ./services/patient-service
+      dockerfile: Dockerfile
+    container_name: mediconnect-patient-service
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=development
+      - PORT=3002
+      - DB_HOST=postgres-patient
+      - DB_PORT=5432
+      - DB_USERNAME=mediconnect
+      - DB_PASSWORD=mediconnect123
+      - DB_NAME=mediconnect_patient
+      - DB_SSL=false
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - JAEGER_ENDPOINT=http://jaeger:14268/api/traces
+      - OTEL_SERVICE_NAME=patient-service
+      - LOG_LEVEL=info
+    depends_on:
+      postgres-patient:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      jaeger:
+        condition: service_started
+    volumes:
+      - ./services/patient-service:/app
+      - /app/node_modules
+    command: npm run dev
+
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    container_name: mediconnect-api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PATIENT_SERVICE_URL=http://patient-service:3002
+      - DOCTOR_SERVICE_URL=http://doctor-service:3003
+      - APPOINTMENT_SERVICE_URL=http://appointment-service:3004
+      - NOTES_SERVICE_URL=http://notes-service:3005
+      - JAEGER_ENDPOINT=http://jaeger:14268/api/traces
+      - OTEL_SERVICE_NAME=api-gateway
+      - LOG_LEVEL=info
+    depends_on:
+      - auth-service
+      - patient-service
+      - jaeger
+    volumes:
+      - ./services/api-gateway:/app
+      - /app/node_modules
+    command: npm run dev
+
+volumes:
+  postgres-auth-data:
+  postgres-patient-data:
+  postgres-doctor-data:
+  postgres-appointment-data:
+  postgres-notes-data:
+
+networks:
+  default:
+    name: mediconnect-network
