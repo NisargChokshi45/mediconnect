@@ -182,9 +182,118 @@ services:
     depends_on:
       - auth-service
       - patient-service
+      - doctor-service
+      - appointment-service
+      - notes-service
       - jaeger
     volumes:
       - ./services/api-gateway:/app
+      - /app/node_modules
+    command: npm run dev
+
+  doctor-service:
+    build:
+      context: ./services/doctor-service
+      dockerfile: Dockerfile
+    container_name: mediconnect-doctor-service
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=development
+      - PORT=3003
+      - DB_HOST=postgres-doctor
+      - DB_PORT=5432
+      - DB_USERNAME=mediconnect
+      - DB_PASSWORD=mediconnect123
+      - DB_NAME=mediconnect_doctor
+      - DB_SSL=false
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - JAEGER_ENDPOINT=http://jaeger:14268/api/traces
+      - OTEL_SERVICE_NAME=doctor-service
+      - LOG_LEVEL=info
+    depends_on:
+      postgres-doctor:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      jaeger:
+        condition: service_started
+    volumes:
+      - ./services/doctor-service:/app
+      - /app/node_modules
+    command: npm run dev
+
+  appointment-service:
+    build:
+      context: ./services/appointment-service
+      dockerfile: Dockerfile
+    container_name: mediconnect-appointment-service
+    ports:
+      - "3004:3004"
+    environment:
+      - NODE_ENV=development
+      - PORT=3004
+      - DB_HOST=postgres-appointment
+      - DB_PORT=5432
+      - DB_USERNAME=mediconnect
+      - DB_PASSWORD=mediconnect123
+      - DB_NAME=mediconnect_appointment
+      - DB_SSL=false
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PATIENT_SERVICE_URL=http://patient-service:3002
+      - DOCTOR_SERVICE_URL=http://doctor-service:3003
+      - INSURANCE_API_URL=http://mock-insurance:8080/verify # Example mock
+      - JAEGER_ENDPOINT=http://jaeger:14268/api/traces
+      - OTEL_SERVICE_NAME=appointment-service
+      - LOG_LEVEL=info
+    depends_on:
+      postgres-appointment:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      patient-service:
+        condition: service_started
+      doctor-service:
+        condition: service_started
+      jaeger:
+        condition: service_started
+    volumes:
+      - ./services/appointment-service:/app
+      - /app/node_modules
+    command: npm run dev
+
+  notes-service:
+    build:
+      context: ./services/notes-service
+      dockerfile: Dockerfile
+    container_name: mediconnect-notes-service
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=development
+      - PORT=3005
+      - DB_HOST=postgres-notes
+      - DB_PORT=5432
+      - DB_USERNAME=mediconnect
+      - DB_PASSWORD=mediconnect123
+      - DB_NAME=mediconnect_notes
+      - DB_SSL=false
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - APPOINTMENT_SERVICE_URL=http://appointment-service:3004
+      - JAEGER_ENDPOINT=http://jaeger:14268/api/traces
+      - OTEL_SERVICE_NAME=notes-service
+      - LOG_LEVEL=info
+    depends_on:
+      postgres-notes:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      appointment-service:
+        condition: service_started
+      jaeger:
+        condition: service_started
+    volumes:
+      - ./services/notes-service:/app
       - /app/node_modules
     command: npm run dev
 
