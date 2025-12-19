@@ -9,7 +9,7 @@ export class AppError extends Error {
     this.name = 'AppError';
   }
 }
-export function errorHandler(err: any, req: Request, res: Response, _next: NextFunction) {
+export const errorHandler = (err: any, req: Request, res: Response, _next: NextFunction) => {
   logger.error('Error occurred:', { error: err.message, stack: err.stack });
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({

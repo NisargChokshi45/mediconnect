@@ -11,10 +11,10 @@ interface InsuranceVerificationResult {
   coverageDetails?: string;
 }
 
-async function verifyInsuranceEligibility(
+const verifyInsuranceEligibility = async (
   patientId: string,
   insurancePolicyNumber: string
-): Promise<InsuranceVerificationResult> {
+): Promise<InsuranceVerificationResult> => {
   try {
     const response = await axios.post(
       `${config.insurance.apiUrl}/verify`,

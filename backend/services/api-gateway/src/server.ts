@@ -4,7 +4,7 @@ import { createLogger } from '../../../shared/logger';
 
 const logger = createLogger('api-gateway', config.logging.level);
 
-async function bootstrap() {
+const bootstrap = async () => {
   try {
     // Start server
     const server = app.listen(config.port, () => {

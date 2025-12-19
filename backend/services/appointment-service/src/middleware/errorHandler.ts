@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { createLogger } from '../../../../shared/logger';
 const logger = createLogger('appointment-service');
-export function errorHandler(err: any, req: Request, res: Response, _next: NextFunction) {
+export const errorHandler = (err: any, req: Request, res: Response, _next: NextFunction) => {
   logger.error('Error occurred:', { error: err.message });
   switch (err.message) {
     case 'APPOINTMENT_NOT_FOUND':

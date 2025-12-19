@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 dotenvConfig();
 
-export function loadConfig() {
+export const loadConfig = () => {
   const configSchema = z.object({
     env: z.enum(['development', 'production', 'test']).default('development'),
     port: z.coerce.number().default(3000),

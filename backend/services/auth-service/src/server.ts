@@ -6,7 +6,7 @@ import { createLogger } from '../../../shared/logger';
 
 const logger = createLogger('auth-service', config.logging.level);
 
-async function bootstrap() {
+const bootstrap = async () => {
   try {
     // Initialize database
     await AppDataSource.initialize();

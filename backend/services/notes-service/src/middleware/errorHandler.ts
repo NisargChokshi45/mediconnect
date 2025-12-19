@@ -3,7 +3,7 @@ import { createLogger } from '../../../../shared/logger';
 
 const logger = createLogger('notes-service');
 
-export function errorHandler(err: Error, req: Request, res: Response, _next: NextFunction) {
+export const errorHandler = (err: Error, req: Request, res: Response, _next: NextFunction) => {
   logger.error('Error occurred:', { error: err.message });
 
   if (err.message === 'NOTE_NOT_FOUND') {

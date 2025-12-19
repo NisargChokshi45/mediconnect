@@ -6,7 +6,7 @@ export interface AuthRequest extends Request {
   user?: { userId: string; email: string; role: string };
 }
 
-export async function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
+export const authMiddleware = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) {
@@ -26,7 +26,7 @@ export async function authMiddleware(req: AuthRequest, res: Response, next: Next
   }
 }
 
-export function requireRole(roles: string[]) {
+export const requireRole = (roles: string[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
     if (!req.user || !roles.includes(req.user.role)) {
       return res.status(403).json({ success: false, error: { code: 'FORBIDDEN', message: 'Insufficient permissions' } });

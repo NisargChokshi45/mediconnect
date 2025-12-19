@@ -6,7 +6,7 @@ import { createLogger } from '../../../shared/logger';
 
 const logger = createLogger('patient-service', config.logging.level);
 
-async function bootstrap() {
+const bootstrap = async () => {
   try {
     await AppDataSource.initialize();
     logger.info('Database connected successfully');

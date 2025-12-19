@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 
-export function correlationIdMiddleware(req: Request, res: Response, next: NextFunction) {
+export const correlationIdMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const headerId = req.headers['x-correlation-id'];
   let correlationId: string;
   

@@ -3,7 +3,7 @@ import { createLogger } from '../../../../shared/logger';
 
 const logger = createLogger('patient-service');
 
-export function errorHandler(err: Error, req: Request, res: Response, _next: NextFunction) {
+export const errorHandler = (err: Error, req: Request, res: Response, _next: NextFunction) => {
   logger.error('Error occurred:', { error: err.message, stack: err.stack });
 
   if (err.message === 'PATIENT_ALREADY_EXISTS') {
