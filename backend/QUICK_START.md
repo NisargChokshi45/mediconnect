@@ -127,11 +127,11 @@ npm test
 
 ## Implemented Services
 
-✅ **Auth Service** - User authentication, JWT generation/verification  
-✅ **Patient Service** - Patient CRUD with auth middleware  
-✅ **API Gateway** - Request routing, OpenAPI docs  
-🔨 **Doctor Service** - Structure ready  
-🔨 **Appointment Service** - Structure ready  
+✅ **Auth Service** - User authentication, JWT generation/verification
+✅ **Patient Service** - Patient CRUD with auth middleware
+✅ **API Gateway** - Request routing, OpenAPI docs
+🔨 **Doctor Service** - Structure ready
+🔨 **Appointment Service** - Structure ready
 🔨 **Notes Service** - Structure ready
 
 ## Common Issues

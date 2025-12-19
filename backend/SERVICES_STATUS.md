@@ -79,11 +79,11 @@
 
 ## Healthcare-Specific Features
 
-✅ **Circuit Breaker Pattern** - Opossum for insurance API resilience  
-✅ **PHI-Safe Logging** - Automatic sanitization of 20+ sensitive fields  
-✅ **SOAP Clinical Notes** - Standard medical documentation format  
-✅ **RBAC** - Role-based access on all protected endpoints  
-✅ **Inter-Service Auth** - JWT validation across microservices  
+✅ **Circuit Breaker Pattern** - Opossum for insurance API resilience
+✅ **PHI-Safe Logging** - Automatic sanitization of 20+ sensitive fields
+✅ **SOAP Clinical Notes** - Standard medical documentation format
+✅ **RBAC** - Role-based access on all protected endpoints
+✅ **Inter-Service Auth** - JWT validation across microservices
 ✅ **Audit-Ready** - Correlation IDs and structured logging
 
 ## What's Next (Optional Enhancements)
