@@ -58,6 +58,22 @@ describe('Appointment Routes', () => {
     });
   });
 
+  describe('GET /appointments/doctor/:id', () => {
+    it('should get doctor appointments', async () => {
+      (AppointmentService.prototype.getDoctorAppointments as jest.Mock).mockResolvedValue([]);
+      const response = await request(app).get('/appointments/doctor/d1');
+      expect(response.status).toBe(200);
+    });
+  });
+
+  describe('GET /appointments/patient/:id/upcoming', () => {
+    it('should get upcoming appointments', async () => {
+      (AppointmentService.prototype.getUpcomingAppointments as jest.Mock).mockResolvedValue([]);
+      const response = await request(app).get('/appointments/patient/p1/upcoming');
+      expect(response.status).toBe(200);
+    });
+  });
+
   describe('PATCH /appointments/:id/status', () => {
     it('should update status', async () => {
       (AppointmentService.prototype.updateAppointmentStatus as jest.Mock).mockResolvedValue({ id: 'a1' });

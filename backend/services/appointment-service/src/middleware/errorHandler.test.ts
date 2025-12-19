@@ -28,6 +28,11 @@ describe('errorHandler Middleware', () => {
     expect(mockResponse.status).toHaveBeenCalledWith(404);
   });
 
+  it('should handle DOCTOR_NOT_FOUND', () => {
+    errorHandler(new Error('DOCTOR_NOT_FOUND'), mockRequest, mockResponse, nextFunction);
+    expect(mockResponse.status).toHaveBeenCalledWith(404);
+  });
+
   it('should handle generic error', () => {
     errorHandler(new Error('Other'), mockRequest, mockResponse, nextFunction);
     expect(mockResponse.status).toHaveBeenCalledWith(500);

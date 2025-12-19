@@ -42,4 +42,16 @@ describe('ServiceClient', () => {
     await authServiceClient.delete('/test', { 'x-test': 'val' });
     expect(mockAxiosInstance.delete).toHaveBeenCalled();
   });
+
+  it('should call methods without headers', async () => {
+    await authServiceClient.get('/test');
+    await authServiceClient.post('/test', {});
+    await authServiceClient.put('/test', {});
+    await authServiceClient.delete('/test');
+    
+    expect(mockAxiosInstance.get).toHaveBeenCalledWith('/test', { headers: {} });
+    expect(mockAxiosInstance.post).toHaveBeenCalledWith('/test', {}, { headers: {} });
+    expect(mockAxiosInstance.put).toHaveBeenCalledWith('/test', {}, { headers: {} });
+    expect(mockAxiosInstance.delete).toHaveBeenCalledWith('/test', { headers: {} });
+  });
 });
