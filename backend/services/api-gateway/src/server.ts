@@ -29,9 +29,6 @@ const bootstrap = async () => {
   }
 }
 
-/* istanbul ignore next */
-if (require.main === module) {
-  bootstrap();
-}
+bootstrap();
 
 export { bootstrap };
