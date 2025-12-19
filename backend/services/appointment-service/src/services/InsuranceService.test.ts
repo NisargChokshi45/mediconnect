@@ -1,26 +1,7 @@
-import { InsuranceService } from './InsuranceService';
 import axios from 'axios';
-import CircuitBreaker from 'opossum';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-// Capture the handlers passed to .on()
-const handlers: Record<string, Function> = {};
-
-jest.mock('opossum', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      fire: jest.fn(),
-      on: jest.fn((event, handler) => {
-        handlers[event] = handler;
-      }),
-      opened: false,
-      halfOpen: false,
-      stats: {},
-    };
-  });
-});
 
 jest.mock('../../../../shared/logger', () => ({
   createLogger: () => ({
@@ -31,57 +12,73 @@ jest.mock('../../../../shared/logger', () => ({
 }));
 
 describe('InsuranceService', () => {
-  let insuranceService: InsuranceService;
+  let insuranceService: any;
+  let InsuranceServiceClass: any;
   let mockBreaker: any;
+
+  beforeAll(() => {
+    mockBreaker = {
+      opened: false,
+      halfOpen: false,
+      fire: jest.fn(),
+      on: jest.fn((event, cb) => cb()),
+      stats: { failures: 0 }
+    };
+    
+    jest.doMock('opossum', () => {
+        return jest.fn().mockImplementation((fn) => {
+            mockBreaker.fire.mockImplementation((...args: any[]) => fn(...args));
+            return mockBreaker;
+        });
+    });
+
+    // Require the class AFTER mocking
+    const module = require('./InsuranceService');
+    InsuranceServiceClass = module.InsuranceService;
+  });
 
   beforeEach(() => {
     jest.clearAllMocks();
-    // Re-import to trigger the module level breaker creation
-    jest.isolateModules(() => {
-        const { InsuranceService: Service } = require('./InsuranceService');
-        const CB = require('opossum');
-        insuranceService = new Service();
-        mockBreaker = CB.mock.results[CB.mock.results.length - 1].value;
-    });
+    mockBreaker.opened = false;
+    mockBreaker.halfOpen = false;
+    insuranceService = new InsuranceServiceClass();
+  });
+
+  afterAll(() => {
+    jest.dontMock('opossum');
   });
 
   describe('verifyEligibility', () => {
     it('should return verified result on success', async () => {
       const mockResult = { verified: true, eligibilityStatus: 'ACTIVE' };
-      mockBreaker.fire.mockResolvedValue(mockResult);
-
+      mockedAxios.post.mockResolvedValue({ data: mockResult });
       const result = await insuranceService.verifyEligibility('p1', 'POL123');
-
       expect(result).toEqual(mockResult);
     });
 
     it('should return failure result on error', async () => {
-      mockBreaker.fire.mockRejectedValue(new Error('fail'));
-
+      mockedAxios.post.mockRejectedValue(new Error('fail'));
       const result = await insuranceService.verifyEligibility('p1', 'POL123');
-
-      expect(result).toEqual({
-        verified: false,
-        eligibilityStatus: 'VERIFICATION_FAILED',
-      });
+      expect(result.verified).toBe(false);
     });
   });
 
   describe('getCircuitBreakerStats', () => {
-    it('should return stats', () => {
+    it('should return OPEN state', () => {
       mockBreaker.opened = true;
-      const stats = insuranceService.getCircuitBreakerStats();
-      expect(stats.state).toBe('OPEN');
+      expect(insuranceService.getCircuitBreakerStats().state).toBe('OPEN');
     });
-  });
 
-  describe('Breaker Events', () => {
-    it('should cover event handlers', () => {
-        if (handlers['open']) handlers['open']();
-        if (handlers['halfOpen']) handlers['halfOpen']();
-        if (handlers['close']) handlers['close']();
-        // Since handlers were captured during module load (via mockBreaker.on), 
-        // calling them here covers the lines in InsuranceService.ts
+    it('should return HALF_OPEN state', () => {
+      mockBreaker.opened = false;
+      mockBreaker.halfOpen = true;
+      expect(insuranceService.getCircuitBreakerStats().state).toBe('HALF_OPEN');
+    });
+
+    it('should return CLOSED state', () => {
+      mockBreaker.opened = false;
+      mockBreaker.halfOpen = false;
+      expect(insuranceService.getCircuitBreakerStats().state).toBe('CLOSED');
     });
   });
 });

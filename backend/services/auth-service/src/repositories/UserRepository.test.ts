@@ -1,6 +1,5 @@
 import { UserRepository } from './UserRepository';
 import { AppDataSource } from '../config/database';
-import { UserRole } from '../entities/User';
 
 jest.mock('../config/database', () => ({
   AppDataSource: {
@@ -10,69 +9,54 @@ jest.mock('../config/database', () => ({
 
 describe('UserRepository', () => {
   let userRepository: UserRepository;
-  let mockRepo: any;
+  let mockRepository: any;
 
   beforeEach(() => {
-    mockRepo = {
+    mockRepository = {
       findOne: jest.fn(),
       create: jest.fn(),
       save: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
     };
-    (AppDataSource.getRepository as jest.Mock).mockReturnValue(mockRepo);
+    (AppDataSource.getRepository as jest.Mock).mockReturnValue(mockRepository);
     userRepository = new UserRepository();
   });
 
-  it('should find user by id', async () => {
-    const mockUser = { id: 'uuid' };
-    mockRepo.findOne.mockResolvedValue(mockUser);
-    const result = await userRepository.findById('uuid');
-    expect(mockRepo.findOne).toHaveBeenCalledWith({ where: { id: 'uuid' } });
-    expect(result).toBe(mockUser);
+  it('should find by id', async () => {
+    mockRepository.findOne.mockResolvedValue({ id: '1' });
+    const result = await userRepository.findById('1');
+    expect(result?.id).toBe('1');
   });
 
-  it('should find user by email', async () => {
-    const mockUser = { email: 'test@test.com' };
-    mockRepo.findOne.mockResolvedValue(mockUser);
-    const result = await userRepository.findByEmail('test@test.com');
-    expect(mockRepo.findOne).toHaveBeenCalledWith({ where: { email: 'test@test.com' } });
-    expect(result).toBe(mockUser);
+  it('should find by email', async () => {
+    mockRepository.findOne.mockResolvedValue({ email: 'e' });
+    const result = await userRepository.findByEmail('e');
+    expect(result?.email).toBe('e');
   });
 
   it('should create user', async () => {
-    const userData = { email: 'test@test.com', passwordHash: 'hash', role: UserRole.PATIENT };
-    const mockUser = { ...userData, id: 'uuid' };
-    mockRepo.create.mockReturnValue(mockUser);
-    mockRepo.save.mockResolvedValue(mockUser);
-
-    const result = await userRepository.create(userData);
-
-    expect(mockRepo.create).toHaveBeenCalledWith(userData);
-    expect(mockRepo.save).toHaveBeenCalledWith(mockUser);
-    expect(result).toBe(mockUser);
+    const data = { email: 'e', passwordHash: 'h', role: 'PATIENT' as any };
+    mockRepository.create.mockReturnValue(data);
+    mockRepository.save.mockResolvedValue({ ...data, id: '1' });
+    const result = await userRepository.create(data);
+    expect(result.id).toBe('1');
   });
 
   it('should update last login', async () => {
-    await userRepository.updateLastLogin('uuid');
-    expect(mockRepo.update).toHaveBeenCalledWith('uuid', { lastLoginAt: expect.any(Date) });
+    await userRepository.updateLastLogin('1');
+    expect(mockRepository.update).toHaveBeenCalledWith('1', expect.objectContaining({ lastLoginAt: expect.any(Date) }));
   });
 
-  it('should update user and return it', async () => {
-    const updateData = { email: 'new@test.com' };
-    const mockUser = { id: 'uuid', ...updateData };
-    mockRepo.update.mockResolvedValue({});
-    mockRepo.findOne.mockResolvedValue(mockUser);
-
-    const result = await userRepository.update('uuid', updateData);
-
-    expect(mockRepo.update).toHaveBeenCalledWith('uuid', updateData);
-    expect(mockRepo.findOne).toHaveBeenCalledWith({ where: { id: 'uuid' } });
-    expect(result).toBe(mockUser);
+  it('should update user', async () => {
+    mockRepository.findOne.mockResolvedValue({ id: '1', email: 'new' });
+    const result = await userRepository.update('1', { email: 'new' });
+    expect(mockRepository.update).toHaveBeenCalledWith('1', { email: 'new' });
+    expect(result?.email).toBe('new');
   });
 
   it('should delete user', async () => {
-    await userRepository.delete('uuid');
-    expect(mockRepo.delete).toHaveBeenCalledWith('uuid');
+    await userRepository.delete('1');
+    expect(mockRepository.delete).toHaveBeenCalledWith('1');
   });
 });

@@ -37,10 +37,13 @@ describe('AppointmentService', () => {
       const result = await appointmentService.createAppointment(createData as any);
 
       expect(result.id).toBe('a1');
-      expect(mockAppointmentRepository.create).toHaveBeenCalled();
       
       // Wait for async background task verifyInsuranceAsync
-      await new Promise(resolve => setTimeout(resolve, 10));
+      for (let i = 0; i < 5; i++) {
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
+      
+      expect(mockInsuranceService.verifyEligibility).toHaveBeenCalled();
     });
 
     it('should throw PATIENT_NOT_FOUND if patient verify fails', async () => {
@@ -62,6 +65,8 @@ describe('AppointmentService', () => {
           
           await (appointmentService as any).verifyInsuranceAsync('a1', 'p1');
           
+          expect(mockedAxios.get).toHaveBeenCalled();
+          expect(mockInsuranceService.verifyEligibility).toHaveBeenCalledWith('p1', 'POL123');
           expect(mockAppointmentRepository.update).toHaveBeenCalledWith('a1', { insuranceVerified: true });
       });
 

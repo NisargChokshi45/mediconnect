@@ -7,9 +7,9 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/server.ts',
-    '!src/config/*.ts',
-    '!src/entities/*.ts',
-    '!src/types/*.ts',
+    '!src/database/**/*.ts',
+    '!src/types/**/*.ts',
+    '!src/tests/**/*.ts',
   ],
   coverageThreshold: {
     global: {
