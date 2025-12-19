@@ -3,7 +3,7 @@ import { DoctorService } from '../services/DoctorService';
 import { authMiddleware, requireRole } from '../middleware/auth';
 import { validateRequest } from '../middleware/validation';
 import { CreateDoctorDtoSchema, UpdateDoctorDtoSchema } from '../types/dtos';
-import { createLogger } from '../../../../shared/logger';
+import { createLogger } from '../utils/logger';
 
 const router = Router();
 const doctorService = new DoctorService();

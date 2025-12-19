@@ -5,7 +5,7 @@ import { PatientService } from '../services/PatientService';
 import { errorHandler } from '../middleware/errorHandler';
 
 jest.mock('../services/PatientService');
-jest.mock('../../../../shared/logger', () => ({
+jest.mock('../utils/logger', () => ({
   createLogger: () => ({
     info: jest.fn(),
     error: jest.fn(),

@@ -3,7 +3,7 @@ import { AppointmentService } from '../services/AppointmentService';
 import { authMiddleware, requireRole } from '../middleware/auth';
 import { validateRequest } from '../middleware/validation';
 import { CreateAppointmentDtoSchema, UpdateAppointmentStatusDtoSchema } from '../types/dtos';
-import { createLogger } from '../../../../shared/logger';
+import { createLogger } from '../utils/logger';
 
 const router = Router();
 const appointmentService = new AppointmentService();

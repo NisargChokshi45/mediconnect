@@ -14,7 +14,7 @@ jest.mock('./config/database', () => ({
   },
 }));
 
-jest.mock('../../../shared/logger', () => ({
+jest.mock('./utils/logger', () => ({
   createLogger: () => ({
     info: jest.fn(),
     error: jest.fn(),

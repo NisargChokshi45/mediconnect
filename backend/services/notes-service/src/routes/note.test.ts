@@ -5,7 +5,7 @@ import { NoteService } from '../services/NoteService';
 import { errorHandler } from '../middleware/errorHandler';
 
 jest.mock('../services/NoteService');
-jest.mock('../../../../shared/logger', () => ({
+jest.mock('../utils/logger', () => ({
   createLogger: () => ({ info: jest.fn(), error: jest.fn() }),
 }));
 

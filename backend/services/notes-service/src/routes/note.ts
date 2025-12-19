@@ -3,7 +3,7 @@ import { NoteService } from '../services/NoteService';
 import { authMiddleware, requireRole, AuthRequest } from '../middleware/auth';
 import { validateRequest } from '../middleware/validation';
 import { CreateNoteDtoSchema, UpdateNoteDtoSchema } from '../types/dtos';
-import { createLogger } from '../../../../shared/logger';
+import { createLogger } from '../utils/logger';
 
 const router = Router();
 const noteService = new NoteService();

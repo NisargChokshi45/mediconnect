@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { AuthService } from '../services/AuthService';
 import { validateRequest } from '../middleware/validation';
 import { LoginDtoSchema, RegisterDtoSchema } from '../types/dtos';
-import { createLogger } from '../../../../shared/logger';
+import { createLogger } from '../utils/logger';
 
 const router = Router();
 const authService = new AuthService();

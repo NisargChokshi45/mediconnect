@@ -5,7 +5,7 @@ import { AuthService } from '../services/AuthService';
 import { errorHandler } from '../middleware/errorHandler';
 
 jest.mock('../services/AuthService');
-jest.mock('../../../../shared/logger', () => ({
+jest.mock('../utils/logger', () => ({
   createLogger: () => ({
     info: jest.fn(),
     error: jest.fn(),

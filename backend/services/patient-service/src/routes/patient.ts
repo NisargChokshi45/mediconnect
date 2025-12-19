@@ -3,7 +3,7 @@ import { PatientService } from '../services/PatientService';
 import { authMiddleware, requireRole, AuthRequest } from '../middleware/auth';
 import { validateRequest } from '../middleware/validation';
 import { CreatePatientDtoSchema, UpdatePatientDtoSchema } from '../types/dtos';
-import { createLogger } from '../../../../shared/logger';
+import { createLogger } from '../utils/logger';
 
 const router = Router();
 const patientService = new PatientService();

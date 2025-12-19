@@ -1,6 +1,6 @@
 import app from './app';
 import { config } from './config';
-import { createLogger } from '../../../shared/logger';
+import { createLogger } from './utils/logger';
 
 const logger = createLogger('api-gateway', config.logging.level);
 

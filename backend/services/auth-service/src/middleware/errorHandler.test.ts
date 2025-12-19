@@ -1,6 +1,6 @@
 import { errorHandler, AppError } from './errorHandler';
 
-jest.mock('../../../../shared/logger', () => ({
+jest.mock('../utils/logger', () => ({
   createLogger: () => ({
     error: jest.fn(),
   }),

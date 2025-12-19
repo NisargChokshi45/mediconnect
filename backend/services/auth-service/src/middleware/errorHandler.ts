@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { createLogger } from '../../../../shared/logger';
+import { createLogger } from '../utils/logger';
 import { config } from '../config';
 const logger = createLogger('auth-service', config.logging.level);
 export class AppError extends Error {

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { createLogger } from '../../../../shared/logger';
+import { createLogger } from '../utils/logger';
 
 const logger = createLogger('notes-service');
 

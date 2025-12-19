@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import app from './app';
 import { AppDataSource } from './config/database';
 import { config } from './config';
-import { createLogger } from '../../../shared/logger';
+import { createLogger } from './utils/logger';
 
 const logger = createLogger('notes-service', config.logging.level);
 

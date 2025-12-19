@@ -1,7 +1,7 @@
 import axios from 'axios';
 import CircuitBreaker from 'opossum';
 import { config } from '../config';
-import { createLogger } from '../../../../shared/logger';
+import { createLogger } from '../utils/logger';
 
 const logger = createLogger('insurance-service');
 

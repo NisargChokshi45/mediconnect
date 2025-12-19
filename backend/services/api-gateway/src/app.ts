@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import swaggerUi from 'swagger-ui-express';
 import { correlationIdMiddleware } from './middleware/correlation';
-import { createLogger } from '../../../shared/logger';
+import { createLogger } from './utils/logger';
 import { config } from './config';
 import authRoutes from './routes/auth';
 import patientRoutes from './routes/patient';
