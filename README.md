@@ -33,15 +33,15 @@ The backend is organized as independent microservices, each with its own databas
 
 ### Key Features
 
-✅ **True Microservices** - Each service is independently deployable  
-✅ **Database per Service** - Separate PostgreSQL databases  
-✅ **API Gateway** - Centralized routing and request aggregation  
-✅ **TypeORM** - Type-safe database operations  
-✅ **Distributed Tracing** - OpenTelemetry + Jaeger integration  
-✅ **PHI-Safe Logging** - Automatic sanitization of sensitive data  
-✅ **JWT Authentication** - Secure token-based auth with RBAC  
-✅ **Type Safety** - TypeScript with Zod validation  
-✅ **Correlation IDs** - Request tracing across services  
+✅ **True Microservices** - Each service is independently deployable
+✅ **Database per Service** - Separate PostgreSQL databases
+✅ **API Gateway** - Centralized routing and request aggregation
+✅ **TypeORM** - Type-safe database operations
+✅ **Distributed Tracing** - OpenTelemetry + Jaeger integration
+✅ **PHI-Safe Logging** - Automatic sanitization of sensitive data
+✅ **JWT Authentication** - Secure token-based auth with RBAC
+✅ **Type Safety** - TypeScript with Zod validation
+✅ **Correlation IDs** - Request tracing across services
 
 ## Technology Stack
 
@@ -66,6 +66,7 @@ docker-compose up -d
 ```
 
 Access:
+
 - API Gateway: http://localhost:3000
 - API Documentation: http://localhost:3000/api-docs
 - Jaeger UI: http://localhost:16686
@@ -89,22 +90,26 @@ npm run dev
 ## API Endpoints
 
 ### Authentication
-- `POST /api/auth/register` - Register new user  
-- `POST /api/auth/login` - User login  
+
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - User login
 
 ### Patients
+
 - `POST /api/patients` - Create patient profile
 - `GET /api/patients/:id` - Get patient profile
 
 ## Healthcare-Specific Engineering
 
 ### PHI Protection
+
 - Automatic logging sanitization of sensitive fields
 - Audit logging for compliance
 - No PHI in error responses
 - JWT-based secure authentication
 
 ### Security Features
+
 - RBAC (Patient, Doctor, Admin)
 - bcrypt password hashing
 - Zod input validation
@@ -130,6 +135,7 @@ npm run test:coverage # With coverage
 ## CI/CD
 
 GitHub Actions pipeline includes:
+
 - Linting
 - Testing with coverage
 - Docker image builds
