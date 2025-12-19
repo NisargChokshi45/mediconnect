@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { DoctorService } from '../services/DoctorService';
-import { authMiddleware, requireRole, AuthRequest } from '../middleware/auth';
+import { authMiddleware, requireRole } from '../middleware/auth';
 import { validateRequest } from '../middleware/validation';
 import { CreateDoctorDtoSchema, UpdateDoctorDtoSchema } from '../types/dtos';
 import { createLogger } from '../../../../shared/logger';
