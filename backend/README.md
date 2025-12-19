@@ -59,12 +59,12 @@ Each service is a standalone Node.js + TypeScript application with:
 backend/
 ├── docker-compose.yml       # Orchestrates all services
 └── services/
-    ├── auth-service/        # ✅ Complete
-    ├── patient-service/     # ✅ Complete
-    ├── doctor-service/      # ✅ Complete
-    ├── appointment-service/ # ✅ Complete (with circuit breaker)
-    ├── notes-service/       # ✅ Complete (SOAP format)
-    └── api-gateway/         # ✅ Complete (OpenAPI docs)
+    ├── auth-service/
+    ├── patient-service/
+    ├── doctor-service/
+    ├── appointment-service/
+    ├── notes-service/
+    └── api-gateway/
 ```
 
 ## Documentation

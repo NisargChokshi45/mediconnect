@@ -24,7 +24,7 @@ for service in "${SERVICES[@]}"; do
   cd ../..
 done
 
-echo "✅ All services setup complete!"
+echo "All services setup complete!"
 echo ""
 echo "Next steps:"
 echo "1. Start Docker Compose: docker-compose up -d"

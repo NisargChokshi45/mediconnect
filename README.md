@@ -33,15 +33,15 @@ The backend is organized as independent microservices, each with its own databas
 
 ### Key Features
 
-✅ **True Microservices** - Each service is independently deployable
-✅ **Database per Service** - Separate PostgreSQL databases
-✅ **API Gateway** - Centralized routing and request aggregation
-✅ **TypeORM** - Type-safe database operations
-✅ **Distributed Tracing** - OpenTelemetry + Jaeger integration
-✅ **PHI-Safe Logging** - Automatic sanitization of sensitive data
-✅ **JWT Authentication** - Secure token-based auth with RBAC
-✅ **Type Safety** - TypeScript with Zod validation
-✅ **Correlation IDs** - Request tracing across services
+- **True Microservices** - Each service is independently deployable
+- **Database per Service** - Separate PostgreSQL databases
+- **API Gateway** - Centralized routing and request aggregation
+- **TypeORM** - Type-safe database operations
+- **Distributed Tracing** - OpenTelemetry + Jaeger integration
+- **PHI-Safe Logging** - Automatic sanitization of sensitive data
+- **JWT Authentication** - Secure token-based auth with RBAC
+- **Type Safety** - TypeScript with Zod validation
+- **Correlation IDs** - Request tracing across services
 
 ## Technology Stack
 

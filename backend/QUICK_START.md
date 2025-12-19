@@ -127,12 +127,12 @@ npm test
 
 ## Implemented Services
 
-✅ **Auth Service** - User authentication, JWT generation/verification
-✅ **Patient Service** - Patient CRUD with auth middleware
-✅ **API Gateway** - Request routing, OpenAPI docs
-🔨 **Doctor Service** - Structure ready
-🔨 **Appointment Service** - Structure ready
-🔨 **Notes Service** - Structure ready
+- **Auth Service** - User authentication, JWT generation/verification
+- **Patient Service** - Patient CRUD with auth middleware
+- **API Gateway** - Request routing, OpenAPI docs
+- **Doctor Service** - Structure ready
+- **Appointment Service** - Structure ready
+- **Notes Service** - Structure ready
 
 ## Common Issues
 
@@ -165,12 +165,12 @@ docker-compose restart
 backend/
 ├── docker-compose.yml       # Orchestration
 └── services/
-    ├── auth-service/       # ✅ Complete
-    ├── patient-service/    # ✅ Complete
-    ├── api-gateway/        # ✅ Complete
-    ├── doctor-service/     # 🔨 Ready
-    ├── appointment-service/# 🔨 Ready
-    └── notes-service/      # 🔨 Ready
+    ├── auth-service/
+    ├── patient-service/
+    ├── api-gateway/
+    ├── doctor-service/
+    ├── appointment-service/
+    └── notes-service/
 ```
 
 ## Security Notes
