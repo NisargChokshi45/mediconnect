@@ -32,4 +32,9 @@ async function bootstrap() {
   }
 }
 
-bootstrap();
+/* istanbul ignore next */
+if (require.main === module) {
+  bootstrap();
+}
+
+export { bootstrap };
