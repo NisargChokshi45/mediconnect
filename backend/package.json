@@ -12,6 +12,8 @@
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
     "format:services": "npm run format --workspaces",
+    "lint": "./lint-services.sh all fix",
+    "lint:check": "./lint-services.sh all",
     "help": "echo 'Available commands:\n  npm run docker:up - Start all services\n  npm run docker:down - Stop all services\n  npm run docker:logs - View logs\n  \nTo run individual services:\n  cd services/<service-name> && npm run dev'"
   },
   "keywords": [
@@ -24,6 +26,10 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.1.1"
   }
 }

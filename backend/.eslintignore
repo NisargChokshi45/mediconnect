@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Coverage reports
+coverage/
+**/coverage/
+
+# Logs
+logs/
+**/logs/
+*.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Docker
+docker-compose.yml
+
+# Generated files
+*.min.js
+
+# Test files that don't need strict linting
+**/*.test.ts
+**/*.test.js
+**/*.spec.ts
+**/*.spec.js
