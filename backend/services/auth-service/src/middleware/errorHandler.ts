@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import { Request, Response, NextFunction } from 'express';
 import { createLogger } from '../../../../shared/logger';
 import { config } from '../config';

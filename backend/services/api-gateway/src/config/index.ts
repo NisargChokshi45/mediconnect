@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import { config as dotenvConfig } from 'dotenv';
 import { z } from 'zod';
 
