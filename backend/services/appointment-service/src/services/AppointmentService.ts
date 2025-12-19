@@ -1,4 +1,4 @@
-/* istanbul ignore file */
+
 import { AppointmentRepository } from '../repositories/AppointmentRepository';
 import { InsuranceService } from './InsuranceService';
 import { CreateAppointmentDto, UpdateAppointmentStatusDto } from '../types/dtos';

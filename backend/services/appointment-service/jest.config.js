@@ -12,8 +12,6 @@ module.exports = {
     '!src/types/**/*.ts',
     '!src/tests/**/*.ts',
     '!src/config/index.ts',
-    '!src/middleware/errorHandler.ts',
-    '!src/services/AppointmentService.ts',
   ],
   coverageThreshold: {
     global: {

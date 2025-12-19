@@ -1,4 +1,4 @@
-/* istanbul ignore file */
+
 import { Request, Response, NextFunction } from 'express';
 import { createLogger } from '../../../../shared/logger';
 const logger = createLogger('appointment-service');

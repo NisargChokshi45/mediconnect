@@ -28,4 +28,12 @@ describe('validateRequest Middleware', () => {
     validateRequest(schema)(mockRequest, mockResponse, nextFunction);
     expect(mockResponse.status).toHaveBeenCalledWith(400);
   });
+
+  it('should call next with error if generic error occurs', () => {
+    const schema = {
+        parse: jest.fn().mockImplementation(() => { throw new Error('Generic error'); })
+    };
+    validateRequest(schema as any)(mockRequest, mockResponse, nextFunction);
+    expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
+  });
 });
