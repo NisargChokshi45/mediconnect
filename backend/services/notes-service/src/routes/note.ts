@@ -34,14 +34,18 @@ router.get('/:id', authMiddleware, async (req: Request, res: Response, next) => 
   }
 });
 
-router.get('/appointment/:appointmentId', authMiddleware, async (req: Request, res: Response, next) => {
-  try {
-    const notes = await noteService.getNotesByAppointmentId(req.params.appointmentId);
-    res.status(200).json({ success: true, data: notes });
-  } catch (error) {
-    next(error);
+router.get(
+  '/appointment/:appointmentId',
+  authMiddleware,
+  async (req: Request, res: Response, next) => {
+    try {
+      const notes = await noteService.getNotesByAppointmentId(req.params.appointmentId);
+      res.status(200).json({ success: true, data: notes });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.get('/doctor/:doctorId', authMiddleware, async (req: Request, res: Response, next) => {
   try {
@@ -68,14 +72,19 @@ router.put(
   }
 );
 
-router.delete('/:id', authMiddleware, requireRole(['DOCTOR']), async (req: AuthRequest, res: Response, next) => {
-  try {
-    await noteService.deleteNote(req.params.id, req.user!.userId);
-    logger.info('Clinical note deleted', { noteId: req.params.id });
-    res.status(204).send();
-  } catch (error) {
-    next(error);
+router.delete(
+  '/:id',
+  authMiddleware,
+  requireRole(['DOCTOR']),
+  async (req: AuthRequest, res: Response, next) => {
+    try {
+      await noteService.deleteNote(req.params.id, req.user!.userId);
+      logger.info('Clinical note deleted', { noteId: req.params.id });
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 export default router;

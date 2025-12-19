@@ -5,12 +5,18 @@ describe('Config', () => {
 
   beforeEach(() => {
     const varsToClear = [
-      'NODE_ENV', 'PORT',
-      'AUTH_SERVICE_URL', 'PATIENT_SERVICE_URL', 'DOCTOR_SERVICE_URL', 
-      'APPOINTMENT_SERVICE_URL', 'NOTES_SERVICE_URL',
-      'JAEGER_ENDPOINT', 'OTEL_SERVICE_NAME', 'LOG_LEVEL'
+      'NODE_ENV',
+      'PORT',
+      'AUTH_SERVICE_URL',
+      'PATIENT_SERVICE_URL',
+      'DOCTOR_SERVICE_URL',
+      'APPOINTMENT_SERVICE_URL',
+      'NOTES_SERVICE_URL',
+      'JAEGER_ENDPOINT',
+      'OTEL_SERVICE_NAME',
+      'LOG_LEVEL',
     ];
-    varsToClear.forEach(v => delete process.env[v]);
+    varsToClear.forEach((v) => delete process.env[v]);
   });
 
   afterAll(() => {
@@ -26,7 +32,7 @@ describe('Config', () => {
     process.env.JAEGER_ENDPOINT = 'http://jaeger';
 
     const config = loadConfig();
-    
+
     expect(config.env).toBe('development');
     expect(config.port).toBe(3000);
     expect(config.observability.serviceName).toBe('api-gateway');

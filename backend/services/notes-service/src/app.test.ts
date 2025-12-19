@@ -2,10 +2,10 @@ import request from 'supertest';
 import app from './app';
 
 jest.mock('./routes/note', () => {
-    const express = require('express');
-    const router = express.Router();
-    router.get('/test', (req: any, res: any) => res.json({ ok: true }));
-    return router;
+  const express = require('express');
+  const router = express.Router();
+  router.get('/test', (req: any, res: any) => res.json({ ok: true }));
+  return router;
 });
 
 describe('Express App (Notes Service)', () => {

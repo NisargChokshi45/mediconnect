@@ -2,16 +2,16 @@ import axios from 'axios';
 import { authServiceClient } from './serviceClient';
 
 jest.mock('axios', () => {
-    const mInstance = {
-        get: jest.fn().mockResolvedValue({ data: 'ok' }),
-        post: jest.fn().mockResolvedValue({ data: 'ok' }),
-        put: jest.fn().mockResolvedValue({ data: 'ok' }),
-        delete: jest.fn().mockResolvedValue({ data: 'ok' }),
-    };
-    return {
-        create: jest.fn(() => mInstance),
-        mInstance // export for easy access
-    };
+  const mInstance = {
+    get: jest.fn().mockResolvedValue({ data: 'ok' }),
+    post: jest.fn().mockResolvedValue({ data: 'ok' }),
+    put: jest.fn().mockResolvedValue({ data: 'ok' }),
+    delete: jest.fn().mockResolvedValue({ data: 'ok' }),
+  };
+  return {
+    create: jest.fn(() => mInstance),
+    mInstance, // export for easy access
+  };
 });
 
 describe('ServiceClient', () => {
@@ -48,7 +48,7 @@ describe('ServiceClient', () => {
     await authServiceClient.post('/test', {});
     await authServiceClient.put('/test', {});
     await authServiceClient.delete('/test');
-    
+
     expect(mockAxiosInstance.get).toHaveBeenCalledWith('/test', { headers: {} });
     expect(mockAxiosInstance.post).toHaveBeenCalledWith('/test', {}, { headers: {} });
     expect(mockAxiosInstance.put).toHaveBeenCalledWith('/test', {}, { headers: {} });

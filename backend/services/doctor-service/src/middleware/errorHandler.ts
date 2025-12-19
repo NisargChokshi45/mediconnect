@@ -9,7 +9,10 @@ export const errorHandler = (err: Error, req: Request, res: Response, _next: Nex
   if (err.message === 'DOCTOR_ALREADY_EXISTS') {
     return res.status(409).json({
       success: false,
-      error: { code: 'DOCTOR_ALREADY_EXISTS', message: 'A doctor profile already exists for this user' },
+      error: {
+        code: 'DOCTOR_ALREADY_EXISTS',
+        message: 'A doctor profile already exists for this user',
+      },
     });
   }
 
@@ -24,4 +27,4 @@ export const errorHandler = (err: Error, req: Request, res: Response, _next: Nex
     success: false,
     error: { code: 'INTERNAL_SERVER_ERROR', message: 'An unexpected error occurred' },
   });
-}
+};

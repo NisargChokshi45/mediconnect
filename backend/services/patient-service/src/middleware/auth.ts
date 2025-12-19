@@ -53,7 +53,7 @@ export const authMiddleware = async (req: AuthRequest, res: Response, next: Next
       },
     });
   }
-}
+};
 
 export const requireRole = (roles: string[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -79,4 +79,4 @@ export const requireRole = (roles: string[]) => {
 
     next();
   };
-}
+};

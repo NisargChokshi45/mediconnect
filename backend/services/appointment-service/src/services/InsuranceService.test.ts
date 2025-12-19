@@ -22,14 +22,14 @@ describe('InsuranceService', () => {
       halfOpen: false,
       fire: jest.fn(),
       on: jest.fn((event, cb) => cb()),
-      stats: { failures: 0 }
+      stats: { failures: 0 },
     };
-    
+
     jest.doMock('opossum', () => {
-        return jest.fn().mockImplementation((fn) => {
-            mockBreaker.fire.mockImplementation((...args: any[]) => fn(...args));
-            return mockBreaker;
-        });
+      return jest.fn().mockImplementation((fn) => {
+        mockBreaker.fire.mockImplementation((...args: any[]) => fn(...args));
+        return mockBreaker;
+      });
     });
 
     // Require the class AFTER mocking

@@ -35,37 +35,35 @@ describe('Doctor Routes', () => {
       const mockDoctor = { id: 'doctor-123' };
       (DoctorService.prototype.createDoctor as jest.Mock).mockResolvedValue(mockDoctor);
 
-      const response = await request(app)
-        .post('/doctors')
-        .send({
-          userId: '550e8400-e29b-41d4-a716-446655440000',
-          firstName: 'Sarah',
-          lastName: 'Williams',
-          specialization: 'Cardiology',
-          licenseNumber: 'MD-123',
-          phone: '1234567890',
-          consultationDuration: 30,
-          yearsOfExperience: 5
-        });
+      const response = await request(app).post('/doctors').send({
+        userId: '550e8400-e29b-41d4-a716-446655440000',
+        firstName: 'Sarah',
+        lastName: 'Williams',
+        specialization: 'Cardiology',
+        licenseNumber: 'MD-123',
+        phone: '1234567890',
+        consultationDuration: 30,
+        yearsOfExperience: 5,
+      });
 
       expect(response.status).toBe(201);
       expect(response.body.data).toEqual(mockDoctor);
     });
 
     it('should handle errors', async () => {
-      (DoctorService.prototype.createDoctor as jest.Mock).mockRejectedValue(new Error('DOCTOR_ALREADY_EXISTS'));
-      const response = await request(app)
-        .post('/doctors')
-        .send({
-          userId: '550e8400-e29b-41d4-a716-446655440000',
-          firstName: 'Sarah',
-          lastName: 'Williams',
-          specialization: 'Cardiology',
-          licenseNumber: 'MD-123',
-          phone: '1234567890',
-          consultationDuration: 30,
-          yearsOfExperience: 5
-        });
+      (DoctorService.prototype.createDoctor as jest.Mock).mockRejectedValue(
+        new Error('DOCTOR_ALREADY_EXISTS')
+      );
+      const response = await request(app).post('/doctors').send({
+        userId: '550e8400-e29b-41d4-a716-446655440000',
+        firstName: 'Sarah',
+        lastName: 'Williams',
+        specialization: 'Cardiology',
+        licenseNumber: 'MD-123',
+        phone: '1234567890',
+        consultationDuration: 30,
+        yearsOfExperience: 5,
+      });
       expect(response.status).toBe(409);
     });
   });
@@ -93,7 +91,9 @@ describe('Doctor Routes', () => {
   describe('GET /doctors/specialization/:spec', () => {
     it('should get doctors by specialization', async () => {
       const mockDoctors = [{ id: '1' }];
-      (DoctorService.prototype.getDoctorsBySpecialization as jest.Mock).mockResolvedValue(mockDoctors);
+      (DoctorService.prototype.getDoctorsBySpecialization as jest.Mock).mockResolvedValue(
+        mockDoctors
+      );
       const response = await request(app).get('/doctors/specialization/Cardio');
       expect(response.status).toBe(200);
       expect(response.body.data).toEqual(mockDoctors);
@@ -117,9 +117,9 @@ describe('Doctor Routes', () => {
     });
 
     it('should handle errors', async () => {
-        (DoctorService.prototype.deleteDoctor as jest.Mock).mockRejectedValue(new Error('fail'));
-        const response = await request(app).delete('/doctors/123');
-        expect(response.status).toBe(500);
+      (DoctorService.prototype.deleteDoctor as jest.Mock).mockRejectedValue(new Error('fail'));
+      const response = await request(app).delete('/doctors/123');
+      expect(response.status).toBe(500);
     });
   });
 
@@ -127,14 +127,14 @@ describe('Doctor Routes', () => {
     it('should handle POST error', async () => {
       (DoctorService.prototype.createDoctor as jest.Mock).mockRejectedValue(new Error('fail'));
       const response = await request(app).post('/doctors').send({
-          userId: '550e8400-e29b-41d4-a716-446655440000',
-          firstName: 'Sarah',
-          lastName: 'Williams',
-          specialization: 'Cardiology',
-          licenseNumber: 'MD-123',
-          phone: '1234567890',
-          consultationDuration: 30,
-          yearsOfExperience: 5
+        userId: '550e8400-e29b-41d4-a716-446655440000',
+        firstName: 'Sarah',
+        lastName: 'Williams',
+        specialization: 'Cardiology',
+        licenseNumber: 'MD-123',
+        phone: '1234567890',
+        consultationDuration: 30,
+        yearsOfExperience: 5,
       });
       expect(response.status).toBe(500);
     });
@@ -152,7 +152,9 @@ describe('Doctor Routes', () => {
     });
 
     it('should handle GET by specialization error', async () => {
-      (DoctorService.prototype.getDoctorsBySpecialization as jest.Mock).mockRejectedValue(new Error('fail'));
+      (DoctorService.prototype.getDoctorsBySpecialization as jest.Mock).mockRejectedValue(
+        new Error('fail')
+      );
       const response = await request(app).get('/doctors/specialization/Cardio');
       expect(response.status).toBe(500);
     });

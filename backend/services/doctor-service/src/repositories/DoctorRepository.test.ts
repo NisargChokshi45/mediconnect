@@ -41,7 +41,9 @@ describe('DoctorRepository', () => {
   it('should find doctors by specialization', async () => {
     mockRepo.find.mockResolvedValue([]);
     const result = await doctorRepository.findBySpecialization('Cardio');
-    expect(mockRepo.find).toHaveBeenCalledWith({ where: { specialization: 'Cardio', isAcceptingPatients: true } });
+    expect(mockRepo.find).toHaveBeenCalledWith({
+      where: { specialization: 'Cardio', isAcceptingPatients: true },
+    });
     expect(result).toEqual([]);
   });
 

@@ -3,41 +3,47 @@
 ## Running the Platform
 
 ### Start All Services (Docker)
+
 ```bash
 cd backend
 docker-compose up -d
 ```
 
 ### Stop All Services
+
 ```bash
 docker-compose down
 ```
 
 ### View Logs
+
 ```bash
 docker-compose logs -f [service-name]
 ```
 
 ## Service Endpoints
 
-| Service | Port | Health Check |
-|---------|------|--------------|
-| API Gateway | 3000 | http://localhost:3000/health |
-| Auth Service | 3001 | http://localhost:3001/health |
-| Patient Service | 3002 | http://localhost:3002/health |
-| Doctor Service | 3003 | http://localhost:3003/health |
+| Service             | Port | Health Check                 |
+| ------------------- | ---- | ---------------------------- |
+| API Gateway         | 3000 | http://localhost:3000/health |
+| Auth Service        | 3001 | http://localhost:3001/health |
+| Patient Service     | 3002 | http://localhost:3002/health |
+| Doctor Service      | 3003 | http://localhost:3003/health |
 | Appointment Service | 3004 | http://localhost:3004/health |
-| Notes Service | 3005 | http://localhost:3005/health |
+| Notes Service       | 3005 | http://localhost:3005/health |
 
 ## API Documentation
+
 - Swagger UI: http://localhost:3000/api-docs
 
 ## Observability
+
 - Jaeger UI: http://localhost:16686
 
 ## Testing the API
 
 ### 1. Register a Patient
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/register \
   -H "Content-Type: application/json" \
@@ -49,6 +55,7 @@ curl -X POST http://localhost:3000/api/auth/register \
 ```
 
 ### 2. Login
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -60,6 +67,7 @@ curl -X POST http://localhost:3000/api/auth/login \
 ```
 
 ### 3. Create Patient Profile
+
 ```bash
 curl -X POST http://localhost:3000/api/patients \
   -H "Content-Type: application/json" \
@@ -77,6 +85,7 @@ curl -X POST http://localhost:3000/api/patients \
 ## Database Access
 
 Each service has its own PostgreSQL database:
+
 - Auth DB: localhost:5432 (mediconnect_auth)
 - Patient DB: localhost:5433 (mediconnect_patient)
 - Doctor DB: localhost:5434 (mediconnect_doctor)
@@ -86,6 +95,7 @@ Each service has its own PostgreSQL database:
 ## Development
 
 ### Run a single service locally
+
 ```bash
 cd services/auth-service
 npm install
@@ -94,12 +104,14 @@ npm run dev
 ```
 
 ### Run migrations
+
 ```bash
 cd services/auth-service
 npm run db:migrate
 ```
 
 ### Run tests
+
 ```bash
 cd services/auth-service
 npm test
@@ -120,11 +132,12 @@ npm test
 ✅ **API Gateway** - Request routing, OpenAPI docs  
 🔨 **Doctor Service** - Structure ready  
 🔨 **Appointment Service** - Structure ready  
-🔨 **Notes Service** - Structure ready  
+🔨 **Notes Service** - Structure ready
 
 ## Common Issues
 
 ### Port already in use
+
 ```bash
 # Find process using port
 lsof -i :3000
@@ -133,6 +146,7 @@ kill -9 PID
 ```
 
 ### Database connection failed
+
 ```bash
 # Check if PostgreSQL containers are running
 docker ps | grep postgres
@@ -141,6 +155,7 @@ docker-compose restart
 ```
 
 ### JWT token expired
+
 - Tokens expire after 24h (configurable in `.env`)
 - Re-login to get a new token
 

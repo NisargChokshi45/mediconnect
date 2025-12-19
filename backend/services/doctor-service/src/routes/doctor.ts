@@ -68,14 +68,19 @@ router.put(
   }
 );
 
-router.delete('/:id', authMiddleware, requireRole(['ADMIN']), async (req: Request, res: Response, next) => {
-  try {
-    await doctorService.deleteDoctor(req.params.id);
-    logger.info('Doctor profile deleted', { doctorId: req.params.id });
-    res.status(204).send();
-  } catch (error) {
-    next(error);
+router.delete(
+  '/:id',
+  authMiddleware,
+  requireRole(['ADMIN']),
+  async (req: Request, res: Response, next) => {
+    try {
+      await doctorService.deleteDoctor(req.params.id);
+      logger.info('Doctor profile deleted', { doctorId: req.params.id });
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 export default router;

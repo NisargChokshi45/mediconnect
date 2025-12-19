@@ -88,13 +88,20 @@ describe('AuthService', () => {
     });
 
     it('should throw error if password invalid', async () => {
-      mockUserRepository.findByEmail.mockResolvedValue({ role: UserRole.PATIENT, passwordHash: 'h' } as any);
+      mockUserRepository.findByEmail.mockResolvedValue({
+        role: UserRole.PATIENT,
+        passwordHash: 'h',
+      } as any);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
       await expect(authService.login(loginData)).rejects.toThrow('INVALID_CREDENTIALS');
     });
 
     it('should throw error if user inactive', async () => {
-      mockUserRepository.findByEmail.mockResolvedValue({ role: UserRole.PATIENT, passwordHash: 'h', isActive: false } as any);
+      mockUserRepository.findByEmail.mockResolvedValue({
+        role: UserRole.PATIENT,
+        passwordHash: 'h',
+        isActive: false,
+      } as any);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
       await expect(authService.login(loginData)).rejects.toThrow('USER_INACTIVE');
     });
@@ -112,7 +119,9 @@ describe('AuthService', () => {
     });
 
     it('should throw error if token invalid', async () => {
-      (jwt.verify as jest.Mock).mockImplementation(() => { throw new Error(); });
+      (jwt.verify as jest.Mock).mockImplementation(() => {
+        throw new Error();
+      });
       await expect(authService.verifyToken('token')).rejects.toThrow('INVALID_TOKEN');
     });
 
@@ -120,7 +129,7 @@ describe('AuthService', () => {
       (jwt.verify as jest.Mock).mockReturnValue({ userId: 'u1' });
       mockUserRepository.findById.mockResolvedValue(null);
       await expect(authService.verifyToken('token')).rejects.toThrow('INVALID_TOKEN');
-      
+
       mockUserRepository.findById.mockResolvedValue({ isActive: false } as any);
       await expect(authService.verifyToken('token')).rejects.toThrow('INVALID_TOKEN');
     });

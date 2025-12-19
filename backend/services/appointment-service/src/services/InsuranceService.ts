@@ -32,7 +32,7 @@ const verifyInsuranceEligibility = async (
     logger.error('Insurance API call failed', { error: error.message });
     throw error;
   }
-}
+};
 
 // Circuit breaker configuration
 const options = {

@@ -43,10 +43,13 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 router.get('/appointment/:appointmentId', async (req: Request, res: Response) => {
   try {
-    const result = await notesServiceClient.get(`/api/notes/appointment/${req.params.appointmentId}`, {
-      'x-correlation-id': req.headers['x-correlation-id'] as string,
-      authorization: req.headers.authorization || '',
-    });
+    const result = await notesServiceClient.get(
+      `/api/notes/appointment/${req.params.appointmentId}`,
+      {
+        'x-correlation-id': req.headers['x-correlation-id'] as string,
+        authorization: req.headers.authorization || '',
+      }
+    );
     res.status(result.status).json(result.data);
   } catch (error: any) {
     if (error.response) {

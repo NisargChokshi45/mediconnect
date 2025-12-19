@@ -22,7 +22,7 @@ describe('DoctorService', () => {
       licenseNumber: 'MD-123',
       phone: '1234567890',
       consultationDuration: 30,
-      yearsOfExperience: 5
+      yearsOfExperience: 5,
     };
 
     it('should create a doctor successfully', async () => {
@@ -97,14 +97,16 @@ describe('DoctorService', () => {
     });
 
     it('should throw error if update fails', async () => {
-        mockDoctorRepository.findById.mockResolvedValue({ id: '1' } as any);
-        mockDoctorRepository.update.mockResolvedValue(null);
-        await expect(doctorService.updateDoctor('doctor-123', {})).rejects.toThrow('UPDATE_FAILED');
+      mockDoctorRepository.findById.mockResolvedValue({ id: '1' } as any);
+      mockDoctorRepository.update.mockResolvedValue(null);
+      await expect(doctorService.updateDoctor('doctor-123', {})).rejects.toThrow('UPDATE_FAILED');
     });
 
     it('should throw error if doctor not found', async () => {
-        mockDoctorRepository.findById.mockResolvedValue(null);
-        await expect(doctorService.updateDoctor('doctor-123', {})).rejects.toThrow('DOCTOR_NOT_FOUND');
+      mockDoctorRepository.findById.mockResolvedValue(null);
+      await expect(doctorService.updateDoctor('doctor-123', {})).rejects.toThrow(
+        'DOCTOR_NOT_FOUND'
+      );
     });
   });
 
@@ -116,8 +118,8 @@ describe('DoctorService', () => {
     });
 
     it('should throw error if doctor not found', async () => {
-        mockDoctorRepository.findById.mockResolvedValue(null);
-        await expect(doctorService.deleteDoctor('doctor-123')).rejects.toThrow('DOCTOR_NOT_FOUND');
+      mockDoctorRepository.findById.mockResolvedValue(null);
+      await expect(doctorService.deleteDoctor('doctor-123')).rejects.toThrow('DOCTOR_NOT_FOUND');
     });
   });
 

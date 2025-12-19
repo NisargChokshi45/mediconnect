@@ -45,7 +45,10 @@ describe('UserRepository', () => {
 
   it('should update last login', async () => {
     await userRepository.updateLastLogin('1');
-    expect(mockRepository.update).toHaveBeenCalledWith('1', expect.objectContaining({ lastLoginAt: expect.any(Date) }));
+    expect(mockRepository.update).toHaveBeenCalledWith(
+      '1',
+      expect.objectContaining({ lastLoginAt: expect.any(Date) })
+    );
   });
 
   it('should update user', async () => {

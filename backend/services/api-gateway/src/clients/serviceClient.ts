@@ -4,7 +4,10 @@ import { config } from '../config';
 class ServiceClient {
   private client: AxiosInstance;
 
-  constructor(private serviceName: string, private baseURL: string) {
+  constructor(
+    private serviceName: string,
+    private baseURL: string
+  ) {
     this.client = axios.create({
       baseURL,
       timeout: 10000,

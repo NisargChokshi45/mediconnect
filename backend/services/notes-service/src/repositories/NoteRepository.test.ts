@@ -33,13 +33,19 @@ describe('NoteRepository', () => {
   it('should find by appointment id', async () => {
     mockRepo.find.mockResolvedValue([]);
     await noteRepository.findByAppointmentId('a1');
-    expect(mockRepo.find).toHaveBeenCalledWith({ where: { appointmentId: 'a1' }, order: { createdAt: 'DESC' } });
+    expect(mockRepo.find).toHaveBeenCalledWith({
+      where: { appointmentId: 'a1' },
+      order: { createdAt: 'DESC' },
+    });
   });
 
   it('should find by doctor id', async () => {
     mockRepo.find.mockResolvedValue([]);
     await noteRepository.findByDoctorId('d1');
-    expect(mockRepo.find).toHaveBeenCalledWith({ where: { doctorId: 'd1' }, order: { createdAt: 'DESC' } });
+    expect(mockRepo.find).toHaveBeenCalledWith({
+      where: { doctorId: 'd1' },
+      order: { createdAt: 'DESC' },
+    });
   });
 
   it('should create note', async () => {

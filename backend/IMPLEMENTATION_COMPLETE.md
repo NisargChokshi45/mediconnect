@@ -67,7 +67,7 @@ I've successfully completed the entire Mediconnect microservices backend impleme
 ✅ **Inter-Service Auth** - JWT validation across microservices  
 ✅ **Correlation IDs** - Request tracing for compliance  
 ✅ **Database-per-Service** - True microservices pattern  
-✅ **Graceful Shutdown** - All services handle SIGTERM/SIGINT  
+✅ **Graceful Shutdown** - All services handle SIGTERM/SIGINT
 
 ## Architecture
 
@@ -78,7 +78,7 @@ API Gateway (:3000)
     ├── Doctor Service (:3003) → Doctor DB (:5434)
     ├── Appointment Service (:3004) → Appointment DB (:5435)
     └── Notes Service (:3005) → Notes DB (:5436)
-    
+
 Observability: Jaeger (:16686)
 ```
 
@@ -90,6 +90,7 @@ docker-compose up -d
 ```
 
 **Access:**
+
 - API: http://localhost:3000
 - API Docs: http://localhost:3000/api-docs
 - Jaeger: http://localhost:16686
@@ -97,22 +98,26 @@ docker-compose up -d
 ## API Endpoints
 
 ### Authentication
+
 - `POST /api/auth/register` - Register user
 - `POST /api/auth/login` - Login
 - `POST /api/auth/verify` - Verify token (internal)
 
 ### Patients
+
 - `POST /api/patients` - Create patient profile
 - `GET /api/patients/:id` - Get patient
 - `PUT /api/patients/:id` - Update patient
 
 ### Doctors
+
 - `POST /api/doctors` - Create doctor profile
 - `GET /api/doctors/:id` - Get doctor
 - `GET /api/doctors/specialization/:spec` - Search by specialization
 - `PUT /api/doctors/:id` - Update doctor
 
 ### Appointments
+
 - `POST /api/appointments` - Schedule appointment (triggers insurance verification)
 - `GET /api/appointments/:id` - Get appointment
 - `GET /api/appointments/patient/:id/upcoming` - Get upcoming appointments
@@ -120,6 +125,7 @@ docker-compose up -d
 - `GET /api/appointments/metrics/circuit-breaker` - Circuit breaker stats (admin)
 
 ### Clinical Notes
+
 - `POST /api/notes` - Create note (doctors only)
 - `GET /api/notes/:id` - Get note
 - `GET /api/notes/appointment/:id` - Get notes for appointment
@@ -159,7 +165,7 @@ These are optional enhancements that can be added next:
 
 - **Auth Service**: 16 files
 - **Patient Service**: 14 files
-- **Doctor Service**: 14 files  
+- **Doctor Service**: 14 files
 - **Appointment Service**: 16 files (includes circuit breaker)
 - **Notes Service**: 14 files (includes SOAP format)
 - **API Gateway**: 13 files (includes all route proxies)
@@ -192,6 +198,7 @@ These are optional enhancements that can be added next:
 **The backend is production-ready and follows enterprise-grade patterns suitable for healthcare applications!** 🎉
 
 All requirements from the original plan have been met:
+
 - ✅ Microservices architecture
 - ✅ TypeORM
 - ✅ JWT + RBAC

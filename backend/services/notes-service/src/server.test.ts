@@ -1,8 +1,7 @@
-
 import app from './app';
 import { AppDataSource } from './config/database';
 
-// Mocks need to be hoisted or defined before imports if using jest.mock, 
+// Mocks need to be hoisted or defined before imports if using jest.mock,
 // but since we isolate modules we can just do it in beforeEach or define here.
 jest.mock('./app', () => ({
   listen: jest.fn(),
@@ -31,7 +30,7 @@ describe('Server', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    
+
     mockListen = app.listen as jest.Mock;
     mockInitialize = AppDataSource.initialize as jest.Mock;
     mockDestroy = AppDataSource.destroy as jest.Mock;
@@ -81,7 +80,7 @@ describe('Server', () => {
     const { bootstrap } = require('./server');
     await bootstrap();
 
-    const shutdownHandler = mockOn.mock.calls.find(call => call[0] === 'SIGTERM')[1];
+    const shutdownHandler = mockOn.mock.calls.find((call) => call[0] === 'SIGTERM')[1];
     await shutdownHandler();
 
     expect(mockClose).toHaveBeenCalled();

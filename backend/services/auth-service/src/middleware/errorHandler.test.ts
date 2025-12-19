@@ -47,9 +47,11 @@ describe('errorHandler Middleware', () => {
     errorHandler(err, mockRequest, mockResponse, nextFunction);
 
     expect(mockResponse.status).toHaveBeenCalledWith(409);
-    expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
-      error: expect.objectContaining({ code: 'USER_ALREADY_EXISTS' })
-    }));
+    expect(mockResponse.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        error: expect.objectContaining({ code: 'USER_ALREADY_EXISTS' }),
+      })
+    );
   });
 
   it('should handle INVALID_CREDENTIALS', () => {
@@ -57,9 +59,11 @@ describe('errorHandler Middleware', () => {
     errorHandler(err, mockRequest, mockResponse, nextFunction);
 
     expect(mockResponse.status).toHaveBeenCalledWith(401);
-    expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
-      error: expect.objectContaining({ code: 'INVALID_CREDENTIALS' })
-    }));
+    expect(mockResponse.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        error: expect.objectContaining({ code: 'INVALID_CREDENTIALS' }),
+      })
+    );
   });
 
   it('should handle USER_INACTIVE', () => {
@@ -67,9 +71,11 @@ describe('errorHandler Middleware', () => {
     errorHandler(err, mockRequest, mockResponse, nextFunction);
 
     expect(mockResponse.status).toHaveBeenCalledWith(403);
-    expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
-      error: expect.objectContaining({ code: 'USER_INACTIVE' })
-    }));
+    expect(mockResponse.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        error: expect.objectContaining({ code: 'USER_INACTIVE' }),
+      })
+    );
   });
 
   it('should handle INVALID_TOKEN', () => {
@@ -77,9 +83,11 @@ describe('errorHandler Middleware', () => {
     errorHandler(err, mockRequest, mockResponse, nextFunction);
 
     expect(mockResponse.status).toHaveBeenCalledWith(401);
-    expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
-      error: expect.objectContaining({ code: 'INVALID_TOKEN' })
-    }));
+    expect(mockResponse.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        error: expect.objectContaining({ code: 'INVALID_TOKEN' }),
+      })
+    );
   });
 
   it('should handle generic error', () => {

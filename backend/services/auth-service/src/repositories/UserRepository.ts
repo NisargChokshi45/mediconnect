@@ -17,11 +17,7 @@ export class UserRepository {
     return this.repository.findOne({ where: { email } });
   }
 
-  async create(data: {
-    email: string;
-    passwordHash: string;
-    role: UserRole;
-  }): Promise<User> {
+  async create(data: { email: string; passwordHash: string; role: UserRole }): Promise<User> {
     const user = this.repository.create(data);
     return this.repository.save(user);
   }

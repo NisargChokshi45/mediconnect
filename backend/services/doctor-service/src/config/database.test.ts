@@ -1,4 +1,3 @@
-
 import { DataSource } from 'typeorm';
 
 describe('Database Config', () => {
@@ -9,18 +8,18 @@ describe('Database Config', () => {
   it('should configure without SSL', () => {
     jest.doMock('./index', () => ({
       config: {
-        database: { 
-          host: 'localhost', 
-          port: 5432, 
-          username: 'user', 
-          password: 'password', 
-          name: 'db', 
-          ssl: false 
+        database: {
+          host: 'localhost',
+          port: 5432,
+          username: 'user',
+          password: 'password',
+          name: 'db',
+          ssl: false,
         },
-        env: 'development'
-      }
+        env: 'development',
+      },
     }));
-    
+
     const { AppDataSource } = require('./database');
     const options = AppDataSource.options;
     expect(options.ssl).toBe(false);
@@ -29,16 +28,16 @@ describe('Database Config', () => {
   it('should configure with SSL', () => {
     jest.doMock('./index', () => ({
       config: {
-        database: { 
-          host: 'localhost', 
-          port: 5432, 
-          username: 'user', 
-          password: 'password', 
-          name: 'db', 
-          ssl: true 
+        database: {
+          host: 'localhost',
+          port: 5432,
+          username: 'user',
+          password: 'password',
+          name: 'db',
+          ssl: true,
         },
-        env: 'production'
-      }
+        env: 'production',
+      },
     }));
 
     const { AppDataSource } = require('./database');

@@ -3,7 +3,11 @@ import { createLogger } from '../../../../shared/logger';
 import { config } from '../config';
 const logger = createLogger('auth-service', config.logging.level);
 export class AppError extends Error {
-  constructor(public code: string, message: string, public statusCode: number = 500) {
+  constructor(
+    public code: string,
+    message: string,
+    public statusCode: number = 500
+  ) {
     super(message);
     this.name = 'AppError';
   }
@@ -43,4 +47,4 @@ export const errorHandler = (err: any, req: Request, res: Response, _next: NextF
         error: { code: 'INTERNAL_SERVER_ERROR', message: 'An unexpected error occurred' },
       });
   }
-}
+};

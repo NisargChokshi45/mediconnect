@@ -30,7 +30,7 @@ const bootstrap = async () => {
     logger.error('Failed to start server:', error);
     process.exit(1);
   }
-}
+};
 
 bootstrap();
 

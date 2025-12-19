@@ -43,10 +43,13 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 router.get('/patient/:patientId/upcoming', async (req: Request, res: Response) => {
   try {
-    const result = await appointmentServiceClient.get(`/api/appointments/patient/${req.params.patientId}/upcoming`, {
-      'x-correlation-id': req.headers['x-correlation-id'] as string,
-      authorization: req.headers.authorization || '',
-    });
+    const result = await appointmentServiceClient.get(
+      `/api/appointments/patient/${req.params.patientId}/upcoming`,
+      {
+        'x-correlation-id': req.headers['x-correlation-id'] as string,
+        authorization: req.headers.authorization || '',
+      }
+    );
     res.status(result.status).json(result.data);
   } catch (error: any) {
     if (error.response) {
@@ -62,10 +65,14 @@ router.get('/patient/:patientId/upcoming', async (req: Request, res: Response) =
 
 router.patch('/:id/status', async (req: Request, res: Response) => {
   try {
-    const result = await appointmentServiceClient.put(`/api/appointments/${req.params.id}/status`, req.body, {
-      'x-correlation-id': req.headers['x-correlation-id'] as string,
-      authorization: req.headers.authorization || '',
-    });
+    const result = await appointmentServiceClient.put(
+      `/api/appointments/${req.params.id}/status`,
+      req.body,
+      {
+        'x-correlation-id': req.headers['x-correlation-id'] as string,
+        authorization: req.headers.authorization || '',
+      }
+    );
     res.status(result.status).json(result.data);
   } catch (error: any) {
     if (error.response) {

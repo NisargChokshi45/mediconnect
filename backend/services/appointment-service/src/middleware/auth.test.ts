@@ -27,7 +27,9 @@ describe('Auth Middleware', () => {
 
     it('should call next if valid token', async () => {
       mockRequest.headers.authorization = 'Bearer token';
-      mockedAxios.post.mockResolvedValue({ data: { success: true, data: { userId: '1', role: 'PATIENT' } } });
+      mockedAxios.post.mockResolvedValue({
+        data: { success: true, data: { userId: '1', role: 'PATIENT' } },
+      });
       await authMiddleware(mockRequest, mockResponse, nextFunction);
       expect(nextFunction).toHaveBeenCalled();
       expect(mockRequest.user).toBeDefined();

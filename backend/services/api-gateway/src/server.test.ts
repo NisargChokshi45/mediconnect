@@ -1,4 +1,3 @@
-
 import app from './app';
 
 jest.mock('./app', () => ({
@@ -19,7 +18,7 @@ describe('Server', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    
+
     mockListen = app.listen as jest.Mock;
     mockExit = jest.spyOn(process, 'exit').mockImplementation(() => undefined as never);
     mockOn = jest.spyOn(process, 'on').mockImplementation();
@@ -46,7 +45,7 @@ describe('Server', () => {
 
   it('should handle startup error', async () => {
     mockListen.mockImplementation(() => {
-        throw new Error('Startup failed');
+      throw new Error('Startup failed');
     });
 
     const { bootstrap } = require('./server');
@@ -65,7 +64,7 @@ describe('Server', () => {
     const { bootstrap } = require('./server');
     await bootstrap();
 
-    const shutdownHandler = mockOn.mock.calls.find(call => call[0] === 'SIGTERM')[1];
+    const shutdownHandler = mockOn.mock.calls.find((call) => call[0] === 'SIGTERM')[1];
     await shutdownHandler();
 
     expect(mockClose).toHaveBeenCalled();

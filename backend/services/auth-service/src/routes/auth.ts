@@ -9,32 +9,40 @@ const authService = new AuthService();
 const logger = createLogger('auth-service');
 
 // Register endpoint
-router.post('/register', validateRequest(RegisterDtoSchema), async (req: Request, res: Response, next) => {
-  try {
-    const result = await authService.register(req.body);
-    logger.info('User registered successfully', { userId: result.user.id });
-    res.status(201).json({
-      success: true,
-      data: result,
-    });
-  } catch (error) {
-    next(error);
+router.post(
+  '/register',
+  validateRequest(RegisterDtoSchema),
+  async (req: Request, res: Response, next) => {
+    try {
+      const result = await authService.register(req.body);
+      logger.info('User registered successfully', { userId: result.user.id });
+      res.status(201).json({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // Login endpoint
-router.post('/login', validateRequest(LoginDtoSchema), async (req: Request, res: Response, next) => {
-  try {
-    const result = await authService.login(req.body);
-    logger.info('User logged in successfully', { userId: result.user.id });
-    res.status(200).json({
-      success: true,
-      data: result,
-    });
-  } catch (error) {
-    next(error);
+router.post(
+  '/login',
+  validateRequest(LoginDtoSchema),
+  async (req: Request, res: Response, next) => {
+    try {
+      const result = await authService.login(req.body);
+      logger.info('User logged in successfully', { userId: result.user.id });
+      res.status(200).json({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // Verify token endpoint (for other services)
 router.post('/verify', async (req: Request, res: Response, next) => {

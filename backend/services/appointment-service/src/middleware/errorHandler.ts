@@ -1,4 +1,3 @@
-
 import { Request, Response, NextFunction } from 'express';
 import { createLogger } from '../../../../shared/logger';
 const logger = createLogger('appointment-service');
@@ -22,4 +21,4 @@ export const errorHandler = (err: any, req: Request, res: Response, _next: NextF
         error: { code: 'INTERNAL_SERVER_ERROR', message: 'An unexpected error occurred' },
       });
   }
-}
+};

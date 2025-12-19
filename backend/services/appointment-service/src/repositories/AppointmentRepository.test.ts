@@ -34,13 +34,17 @@ describe('AppointmentRepository', () => {
   it('should find by patient id', async () => {
     mockRepo.find.mockResolvedValue([]);
     await appointmentRepository.findByPatientId('p1');
-    expect(mockRepo.find).toHaveBeenCalledWith(expect.objectContaining({ where: { patientId: 'p1' } }));
+    expect(mockRepo.find).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { patientId: 'p1' } })
+    );
   });
 
   it('should find by doctor id', async () => {
     mockRepo.find.mockResolvedValue([]);
     await appointmentRepository.findByDoctorId('d1');
-    expect(mockRepo.find).toHaveBeenCalledWith(expect.objectContaining({ where: { doctorId: 'd1' } }));
+    expect(mockRepo.find).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { doctorId: 'd1' } })
+    );
   });
 
   it('should find upcoming', async () => {

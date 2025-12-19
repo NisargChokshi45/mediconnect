@@ -1,4 +1,3 @@
-
 import { AppointmentRepository } from '../repositories/AppointmentRepository';
 import { InsuranceService } from './InsuranceService';
 import { CreateAppointmentDto, UpdateAppointmentStatusDto } from '../types/dtos';
@@ -36,7 +35,9 @@ export class AppointmentService {
   }
   private async verifyInsuranceAsync(appointmentId: string, patientId: string) {
     try {
-      const patientResponse = await axios.get(`${config.patientService.url}/api/patients/${patientId}`);
+      const patientResponse = await axios.get(
+        `${config.patientService.url}/api/patients/${patientId}`
+      );
       const patient = patientResponse.data.data;
       if (patient.insurancePolicyNumber) {
         const result = await this.insuranceService.verifyEligibility(
@@ -67,7 +68,10 @@ export class AppointmentService {
   async getUpcomingAppointments(patientId: string): Promise<Appointment[]> {
     return this.appointmentRepository.findUpcoming(patientId);
   }
-  async updateAppointmentStatus(id: string, data: UpdateAppointmentStatusDto): Promise<Appointment> {
+  async updateAppointmentStatus(
+    id: string,
+    data: UpdateAppointmentStatusDto
+  ): Promise<Appointment> {
     const appointment = await this.appointmentRepository.findById(id);
     if (!appointment) {
       throw new Error('APPOINTMENT_NOT_FOUND');

@@ -10,7 +10,7 @@ All services are located in the `services/` directory:
 
 - **auth-service** (Port 3001) - User authentication and JWT management
 - **patient-service** (Port 3002) - Patient profile management
-- **doctor-service** (Port 3003) - Doctor profile management  
+- **doctor-service** (Port 3003) - Doctor profile management
 - **appointment-service** (Port 3004) - Appointment scheduling with circuit breaker
 - **notes-service** (Port 3005) - Clinical notes (SOAP format)
 - **api-gateway** (Port 3000) - API Gateway with routing and OpenAPI docs
@@ -24,6 +24,7 @@ docker-compose up -d
 ```
 
 This starts:
+
 - All 6 microservices
 - 5 PostgreSQL databases (one per service)
 - Jaeger for distributed tracing
@@ -46,6 +47,7 @@ npm run dev
 ## Development
 
 Each service is a standalone Node.js + TypeScript application with:
+
 - Its own `package.json` and dependencies
 - Its own TypeORM configuration and database
 - Its own tests
@@ -71,6 +73,7 @@ backend/
 ## Documentation
 
 See individual service README files and:
+
 - [QUICK_START.md](./QUICK_START.md) - Quick start guide with API examples
 - [SERVICES_STATUS.md](./SERVICES_STATUS.md) - Complete implementation status
 - [IMPLEMENTATION_COMPLETE.md](./IMPLEMENTATION_COMPLETE.md) - Full implementation walkthrough

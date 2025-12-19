@@ -6,14 +6,22 @@ describe('Config', () => {
   beforeEach(() => {
     // Clear all relevant environment variables
     const varsToClear = [
-      'NODE_ENV', 'PORT',
-      'DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_NAME', 'DB_SSL',
-      'JWT_SECRET', 'JWT_EXPIRES_IN',
+      'NODE_ENV',
+      'PORT',
+      'DB_HOST',
+      'DB_PORT',
+      'DB_USERNAME',
+      'DB_PASSWORD',
+      'DB_NAME',
+      'DB_SSL',
+      'JWT_SECRET',
+      'JWT_EXPIRES_IN',
       'AUDIT_SERVICE_URL',
-      'JAEGER_ENDPOINT', 'OTEL_SERVICE_NAME',
-      'LOG_LEVEL'
+      'JAEGER_ENDPOINT',
+      'OTEL_SERVICE_NAME',
+      'LOG_LEVEL',
     ];
-    varsToClear.forEach(v => delete process.env[v]);
+    varsToClear.forEach((v) => delete process.env[v]);
   });
 
   afterAll(() => {
@@ -25,7 +33,7 @@ describe('Config', () => {
     process.env.JAEGER_ENDPOINT = 'http://jaeger:14268';
 
     const config = loadConfig();
-    
+
     expect(config.env).toBe('development');
     expect(config.port).toBe(3001);
     expect(config.database.host).toBe('localhost');
@@ -54,7 +62,7 @@ describe('Config', () => {
     process.env.LOG_LEVEL = 'error';
 
     const config = loadConfig();
-    
+
     expect(config.env).toBe('production');
     expect(config.port).toBe(4000);
     expect(config.database.ssl).toBe(true);
@@ -65,10 +73,10 @@ describe('Config', () => {
   });
 
   it('should handle optional audit url being present', () => {
-      process.env.JWT_SECRET = 'a'.repeat(32);
-      process.env.JAEGER_ENDPOINT = 'http://jaeger:14268';
-      process.env.AUDIT_SERVICE_URL = 'http://audit-service';
-      const config = loadConfig();
-      expect(config.auditService.url).not.toBeUndefined();
+    process.env.JWT_SECRET = 'a'.repeat(32);
+    process.env.JAEGER_ENDPOINT = 'http://jaeger:14268';
+    process.env.AUDIT_SERVICE_URL = 'http://audit-service';
+    const config = loadConfig();
+    expect(config.auditService.url).not.toBeUndefined();
   });
 });

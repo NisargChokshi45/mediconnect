@@ -5,13 +5,22 @@ describe('Config', () => {
 
   beforeEach(() => {
     const varsToClear = [
-      'NODE_ENV', 'PORT',
-      'DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD', 'DB_NAME', 'DB_SSL',
-      'AUTH_SERVICE_URL', 'PATIENT_SERVICE_URL', 'DOCTOR_SERVICE_URL',
-      'INSURANCE_API_URL', 'INSURANCE_API_KEY',
-      'LOG_LEVEL'
+      'NODE_ENV',
+      'PORT',
+      'DB_HOST',
+      'DB_PORT',
+      'DB_USERNAME',
+      'DB_PASSWORD',
+      'DB_NAME',
+      'DB_SSL',
+      'AUTH_SERVICE_URL',
+      'PATIENT_SERVICE_URL',
+      'DOCTOR_SERVICE_URL',
+      'INSURANCE_API_URL',
+      'INSURANCE_API_KEY',
+      'LOG_LEVEL',
     ];
-    varsToClear.forEach(v => delete process.env[v]);
+    varsToClear.forEach((v) => delete process.env[v]);
   });
 
   afterAll(() => {
@@ -26,7 +35,7 @@ describe('Config', () => {
     process.env.INSURANCE_API_KEY = 'key';
 
     const config = loadConfig();
-    
+
     expect(config.env).toBe('development');
     expect(config.port).toBe(3004);
     expect(config.database.host).toBe('localhost');

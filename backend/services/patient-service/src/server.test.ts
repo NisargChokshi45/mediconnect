@@ -1,4 +1,3 @@
-
 import app from './app';
 import { AppDataSource } from './config/database';
 
@@ -29,7 +28,7 @@ describe('Server', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    
+
     mockListen = app.listen as jest.Mock;
     mockInitialize = AppDataSource.initialize as jest.Mock;
     mockDestroy = AppDataSource.destroy as jest.Mock;
@@ -79,7 +78,7 @@ describe('Server', () => {
     const { bootstrap } = require('./server');
     await bootstrap();
 
-    const shutdownHandler = mockOn.mock.calls.find(call => call[0] === 'SIGTERM')[1];
+    const shutdownHandler = mockOn.mock.calls.find((call) => call[0] === 'SIGTERM')[1];
     await shutdownHandler();
 
     expect(mockClose).toHaveBeenCalled();

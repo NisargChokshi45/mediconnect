@@ -10,27 +10,42 @@ export const authMiddleware = async (req: AuthRequest, res: Response, next: Next
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) {
-      return res.status(401).json({ success: false, error: { code: 'MISSING_TOKEN', message: 'Authentication token is required' } });
+      return res.status(401).json({
+        success: false,
+        error: { code: 'MISSING_TOKEN', message: 'Authentication token is required' },
+      });
     }
 
-    const response = await axios.post(`${config.authService.url}/api/auth/verify`, {}, { headers: { authorization: `Bearer ${token}` } });
+    const response = await axios.post(
+      `${config.authService.url}/api/auth/verify`,
+      {},
+      { headers: { authorization: `Bearer ${token}` } }
+    );
 
     if (response.data.success) {
       req.user = response.data.data;
       next();
     } else {
-      return res.status(401).json({ success: false, error: { code: 'INVALID_TOKEN', message: 'Invalid authentication token' } });
+      return res.status(401).json({
+        success: false,
+        error: { code: 'INVALID_TOKEN', message: 'Invalid authentication token' },
+      });
     }
   } catch (error) {
-    return res.status(401).json({ success: false, error: { code: 'AUTH_FAILED', message: 'Authentication failed' } });
+    return res
+      .status(401)
+      .json({ success: false, error: { code: 'AUTH_FAILED', message: 'Authentication failed' } });
   }
-}
+};
 
 export const requireRole = (roles: string[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
     if (!req.user || !roles.includes(req.user.role)) {
-      return res.status(403).json({ success: false, error: { code: 'FORBIDDEN', message: 'Insufficient permissions' } });
+      return res.status(403).json({
+        success: false,
+        error: { code: 'FORBIDDEN', message: 'Insufficient permissions' },
+      });
     }
     next();
   };
-}
+};

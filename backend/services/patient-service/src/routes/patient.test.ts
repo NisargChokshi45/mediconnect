@@ -36,34 +36,32 @@ describe('Patient Routes', () => {
       const mockPatient = { id: 'patient-123', firstName: 'John' };
       (PatientService.prototype.createPatient as jest.Mock).mockResolvedValue(mockPatient);
 
-      const response = await request(app)
-        .post('/patients')
-        .send({
-          userId: '550e8400-e29b-41d4-a716-446655440000',
-          firstName: 'John',
-          lastName: 'Doe',
-          dateOfBirth: '1990-01-01',
-          phone: '1234567890',
-          bloodGroup: 'O+'
-        });
+      const response = await request(app).post('/patients').send({
+        userId: '550e8400-e29b-41d4-a716-446655440000',
+        firstName: 'John',
+        lastName: 'Doe',
+        dateOfBirth: '1990-01-01',
+        phone: '1234567890',
+        bloodGroup: 'O+',
+      });
 
       expect(response.status).toBe(201);
       expect(response.body.data).toEqual(mockPatient);
     });
 
     it('should handle errors', async () => {
-      (PatientService.prototype.createPatient as jest.Mock).mockRejectedValue(new Error('PATIENT_ALREADY_EXISTS'));
+      (PatientService.prototype.createPatient as jest.Mock).mockRejectedValue(
+        new Error('PATIENT_ALREADY_EXISTS')
+      );
 
-      const response = await request(app)
-        .post('/patients')
-        .send({
-          userId: '550e8400-e29b-41d4-a716-446655440000',
-          firstName: 'John',
-          lastName: 'Doe',
-          dateOfBirth: '1990-01-01',
-          phone: '1234567890',
-          bloodGroup: 'O+'
-        });
+      const response = await request(app).post('/patients').send({
+        userId: '550e8400-e29b-41d4-a716-446655440000',
+        firstName: 'John',
+        lastName: 'Doe',
+        dateOfBirth: '1990-01-01',
+        phone: '1234567890',
+        bloodGroup: 'O+',
+      });
 
       expect(response.status).toBe(409);
     });
@@ -81,9 +79,11 @@ describe('Patient Routes', () => {
     });
 
     it('should handle not found', async () => {
-        (PatientService.prototype.getPatientById as jest.Mock).mockRejectedValue(new Error('PATIENT_NOT_FOUND'));
-        const response = await request(app).get('/patients/123');
-        expect(response.status).toBe(404);
+      (PatientService.prototype.getPatientById as jest.Mock).mockRejectedValue(
+        new Error('PATIENT_NOT_FOUND')
+      );
+      const response = await request(app).get('/patients/123');
+      expect(response.status).toBe(404);
     });
   });
 
@@ -99,9 +99,11 @@ describe('Patient Routes', () => {
     });
 
     it('should handle errors', async () => {
-        (PatientService.prototype.getPatientByUserId as jest.Mock).mockRejectedValue(new Error('Generic error'));
-        const response = await request(app).get('/patients/user/user-123');
-        expect(response.status).toBe(500);
+      (PatientService.prototype.getPatientByUserId as jest.Mock).mockRejectedValue(
+        new Error('Generic error')
+      );
+      const response = await request(app).get('/patients/user/user-123');
+      expect(response.status).toBe(500);
     });
   });
 
@@ -110,18 +112,18 @@ describe('Patient Routes', () => {
       const mockPatient = { id: '123', firstName: 'Updated' };
       (PatientService.prototype.updatePatient as jest.Mock).mockResolvedValue(mockPatient);
 
-      const response = await request(app)
-        .put('/patients/123')
-        .send({ firstName: 'Updated' });
+      const response = await request(app).put('/patients/123').send({ firstName: 'Updated' });
 
       expect(response.status).toBe(200);
       expect(response.body.data).toEqual(mockPatient);
     });
 
     it('should handle errors', async () => {
-        (PatientService.prototype.updatePatient as jest.Mock).mockRejectedValue(new Error('Generic error'));
-        const response = await request(app).put('/patients/123').send({ firstName: 'Updated' });
-        expect(response.status).toBe(500);
+      (PatientService.prototype.updatePatient as jest.Mock).mockRejectedValue(
+        new Error('Generic error')
+      );
+      const response = await request(app).put('/patients/123').send({ firstName: 'Updated' });
+      expect(response.status).toBe(500);
     });
   });
 
@@ -135,9 +137,11 @@ describe('Patient Routes', () => {
     });
 
     it('should handle errors', async () => {
-        (PatientService.prototype.deletePatient as jest.Mock).mockRejectedValue(new Error('Generic error'));
-        const response = await request(app).delete('/patients/123');
-        expect(response.status).toBe(500);
+      (PatientService.prototype.deletePatient as jest.Mock).mockRejectedValue(
+        new Error('Generic error')
+      );
+      const response = await request(app).delete('/patients/123');
+      expect(response.status).toBe(500);
     });
   });
 });

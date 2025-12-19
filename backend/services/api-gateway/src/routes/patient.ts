@@ -3,7 +3,7 @@ import { patientServiceClient } from '../clients/serviceClient';
 
 const router = Router();
 
-// Proxy patient registration to patient service  
+// Proxy patient registration to patient service
 router.post('/', async (req: Request, res: Response) => {
   try {
     const result = await patientServiceClient.post('/api/patients', req.body, {

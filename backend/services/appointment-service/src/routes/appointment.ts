@@ -52,14 +52,18 @@ router.get('/doctor/:doctorId', authMiddleware, async (req: Request, res: Respon
   }
 });
 
-router.get('/patient/:patientId/upcoming', authMiddleware, async (req: Request, res: Response, next) => {
-  try {
-    const appointments = await appointmentService.getUpcomingAppointments(req.params.patientId);
-    res.status(200).json({ success: true, data: appointments });
-  } catch (error) {
-    next(error);
+router.get(
+  '/patient/:patientId/upcoming',
+  authMiddleware,
+  async (req: Request, res: Response, next) => {
+    try {
+      const appointments = await appointmentService.getUpcomingAppointments(req.params.patientId);
+      res.status(200).json({ success: true, data: appointments });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.patch(
   '/:id/status',
@@ -68,7 +72,10 @@ router.patch(
   async (req: Request, res: Response, next) => {
     try {
       const appointment = await appointmentService.updateAppointmentStatus(req.params.id, req.body);
-      logger.info('Appointment status updated', { appointmentId: appointment.id, status: appointment.status });
+      logger.info('Appointment status updated', {
+        appointmentId: appointment.id,
+        status: appointment.status,
+      });
       res.status(200).json({ success: true, data: appointment });
     } catch (error) {
       next(error);
@@ -76,19 +83,29 @@ router.patch(
   }
 );
 
-router.delete('/:id', authMiddleware, requireRole(['ADMIN']), async (req: Request, res: Response, next) => {
-  try {
-    await appointmentService.deleteAppointment(req.params.id);
-    logger.info('Appointment deleted', { appointmentId: req.params.id });
-    res.status(204).send();
-  } catch (error) {
-    next(error);
+router.delete(
+  '/:id',
+  authMiddleware,
+  requireRole(['ADMIN']),
+  async (req: Request, res: Response, next) => {
+    try {
+      await appointmentService.deleteAppointment(req.params.id);
+      logger.info('Appointment deleted', { appointmentId: req.params.id });
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
-router.get('/metrics/circuit-breaker', authMiddleware, requireRole(['ADMIN']), async (req: Request, res: Response) => {
-  const stats = appointmentService.getInsuranceCircuitBreakerStats();
-  res.status(200).json({ success: true, data: stats });
-});
+router.get(
+  '/metrics/circuit-breaker',
+  authMiddleware,
+  requireRole(['ADMIN']),
+  async (req: Request, res: Response) => {
+    const stats = appointmentService.getInsuranceCircuitBreakerStats();
+    res.status(200).json({ success: true, data: stats });
+  }
+);
 
 export default router;

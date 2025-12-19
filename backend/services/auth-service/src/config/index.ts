@@ -57,6 +57,6 @@ export const loadConfig = () => {
       level: process.env.LOG_LEVEL,
     },
   });
-}
+};
 
 export const config = loadConfig();

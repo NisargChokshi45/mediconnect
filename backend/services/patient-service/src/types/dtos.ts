@@ -8,7 +8,10 @@ export const CreatePatientDtoSchema = z.object({
   phone: z.string().regex(/^[\d\s\-\+\(\)]+$/),
   address: z.string().optional(),
   emergencyContact: z.string().optional(),
-  emergencyPhone: z.string().regex(/^[\d\s\-\+\(\)]+$/).optional(),
+  emergencyPhone: z
+    .string()
+    .regex(/^[\d\s\-\+\(\)]+$/)
+    .optional(),
   insuranceProvider: z.string().optional(),
   insurancePolicyNumber: z.string().optional(),
   medicalHistory: z.string().optional(),
@@ -21,10 +24,16 @@ export type CreatePatientDto = z.infer<typeof CreatePatientDtoSchema>;
 export const UpdatePatientDtoSchema = z.object({
   firstName: z.string().min(1).optional(),
   lastName: z.string().min(1).optional(),
-  phone: z.string().regex(/^[\d\s\-\+\(\)]+$/).optional(),
+  phone: z
+    .string()
+    .regex(/^[\d\s\-\+\(\)]+$/)
+    .optional(),
   address: z.string().optional(),
   emergencyContact: z.string().optional(),
-  emergencyPhone: z.string().regex(/^[\d\s\-\+\(\)]+$/).optional(),
+  emergencyPhone: z
+    .string()
+    .regex(/^[\d\s\-\+\(\)]+$/)
+    .optional(),
   insuranceProvider: z.string().optional(),
   insurancePolicyNumber: z.string().optional(),
   medicalHistory: z.string().optional(),

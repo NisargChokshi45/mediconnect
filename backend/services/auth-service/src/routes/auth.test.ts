@@ -39,7 +39,9 @@ describe('Auth Routes', () => {
     });
 
     it('should return error if service throws', async () => {
-      (AuthService.prototype.register as jest.Mock).mockRejectedValue(new Error('USER_ALREADY_EXISTS'));
+      (AuthService.prototype.register as jest.Mock).mockRejectedValue(
+        new Error('USER_ALREADY_EXISTS')
+      );
 
       const response = await request(app)
         .post('/auth/register')
@@ -64,7 +66,9 @@ describe('Auth Routes', () => {
     });
 
     it('should return error if login fails', async () => {
-      (AuthService.prototype.login as jest.Mock).mockRejectedValue(new Error('INVALID_CREDENTIALS'));
+      (AuthService.prototype.login as jest.Mock).mockRejectedValue(
+        new Error('INVALID_CREDENTIALS')
+      );
 
       const response = await request(app)
         .post('/auth/login')
@@ -93,7 +97,9 @@ describe('Auth Routes', () => {
     });
 
     it('should return error if verifyToken throws', async () => {
-      (AuthService.prototype.verifyToken as jest.Mock).mockRejectedValue(new Error('INVALID_TOKEN'));
+      (AuthService.prototype.verifyToken as jest.Mock).mockRejectedValue(
+        new Error('INVALID_TOKEN')
+      );
 
       const response = await request(app)
         .post('/auth/verify')

@@ -26,9 +26,11 @@ describe('Auth Middleware', () => {
     it('should return 401 if no token is provided', async () => {
       await authMiddleware(mockRequest, mockResponse, nextFunction);
       expect(mockResponse.status).toHaveBeenCalledWith(401);
-      expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
-        error: expect.objectContaining({ code: 'MISSING_TOKEN' })
-      }));
+      expect(mockResponse.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: expect.objectContaining({ code: 'MISSING_TOKEN' }),
+        })
+      );
     });
 
     it('should call next() if token is valid', async () => {
@@ -36,8 +38,8 @@ describe('Auth Middleware', () => {
       mockedAxios.post.mockResolvedValue({
         data: {
           success: true,
-          data: { userId: '1', role: 'PATIENT' }
-        }
+          data: { userId: '1', role: 'PATIENT' },
+        },
       });
 
       await authMiddleware(mockRequest, mockResponse, nextFunction);
@@ -49,15 +51,17 @@ describe('Auth Middleware', () => {
     it('should return 401 if auth service returns failure', async () => {
       mockRequest.headers.authorization = 'Bearer invalid-token';
       mockedAxios.post.mockResolvedValue({
-        data: { success: false }
+        data: { success: false },
       });
 
       await authMiddleware(mockRequest, mockResponse, nextFunction);
 
       expect(mockResponse.status).toHaveBeenCalledWith(401);
-      expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
-        error: expect.objectContaining({ code: 'INVALID_TOKEN' })
-      }));
+      expect(mockResponse.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: expect.objectContaining({ code: 'INVALID_TOKEN' }),
+        })
+      );
     });
 
     it('should return 401 if auth service request fails', async () => {
@@ -67,9 +71,11 @@ describe('Auth Middleware', () => {
       await authMiddleware(mockRequest, mockResponse, nextFunction);
 
       expect(mockResponse.status).toHaveBeenCalledWith(401);
-      expect(mockResponse.json).toHaveBeenCalledWith(expect.objectContaining({
-        error: expect.objectContaining({ code: 'AUTH_FAILED' })
-      }));
+      expect(mockResponse.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          error: expect.objectContaining({ code: 'AUTH_FAILED' }),
+        })
+      );
     });
   });
 
@@ -77,26 +83,26 @@ describe('Auth Middleware', () => {
     it('should call next() if user has required role', () => {
       mockRequest.user = { role: 'ADMIN' };
       const middleware = requireRole(['ADMIN', 'DOCTOR']);
-      
+
       middleware(mockRequest, mockResponse, nextFunction);
-      
+
       expect(nextFunction).toHaveBeenCalled();
     });
 
     it('should return 401 if user is missing', () => {
       const middleware = requireRole(['ADMIN']);
-      
+
       middleware(mockRequest, mockResponse, nextFunction);
-      
+
       expect(mockResponse.status).toHaveBeenCalledWith(401);
     });
 
     it('should return 403 if user has wrong role', () => {
       mockRequest.user = { role: 'PATIENT' };
       const middleware = requireRole(['ADMIN']);
-      
+
       middleware(mockRequest, mockResponse, nextFunction);
-      
+
       expect(mockResponse.status).toHaveBeenCalledWith(403);
     });
   });

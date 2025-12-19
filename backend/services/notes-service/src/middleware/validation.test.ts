@@ -30,7 +30,11 @@ describe('validateRequest Middleware', () => {
   });
 
   it('should call next(error) if unexpected error', () => {
-    const schema = { parse: () => { throw new Error(); } } as any;
+    const schema = {
+      parse: () => {
+        throw new Error();
+      },
+    } as any;
     validateRequest(schema)(mockRequest, mockResponse, nextFunction);
     expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
   });

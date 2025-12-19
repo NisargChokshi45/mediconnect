@@ -20,12 +20,16 @@ describe('PatientService', () => {
       lastName: 'Doe',
       dateOfBirth: '1990-01-01',
       phone: '1234567890',
-      bloodGroup: 'O+'
+      bloodGroup: 'O+',
     };
 
     it('should create a patient successfully', async () => {
       mockPatientRepository.findByUserId.mockResolvedValue(null);
-      mockPatientRepository.create.mockResolvedValue({ ...createData, id: 'patient-123', dateOfBirth: new Date(createData.dateOfBirth) } as any);
+      mockPatientRepository.create.mockResolvedValue({
+        ...createData,
+        id: 'patient-123',
+        dateOfBirth: new Date(createData.dateOfBirth),
+      } as any);
 
       const result = await patientService.createPatient(createData);
 
@@ -37,7 +41,9 @@ describe('PatientService', () => {
     it('should throw error if patient already exists for user', async () => {
       mockPatientRepository.findByUserId.mockResolvedValue({ id: 'existing' } as any);
 
-      await expect(patientService.createPatient(createData)).rejects.toThrow('PATIENT_ALREADY_EXISTS');
+      await expect(patientService.createPatient(createData)).rejects.toThrow(
+        'PATIENT_ALREADY_EXISTS'
+      );
     });
   });
 
@@ -54,7 +60,9 @@ describe('PatientService', () => {
     it('should throw error if patient not found', async () => {
       mockPatientRepository.findById.mockResolvedValue(null);
 
-      await expect(patientService.getPatientById('patient-123')).rejects.toThrow('PATIENT_NOT_FOUND');
+      await expect(patientService.getPatientById('patient-123')).rejects.toThrow(
+        'PATIENT_NOT_FOUND'
+      );
     });
   });
 
@@ -71,7 +79,9 @@ describe('PatientService', () => {
     it('should throw error if patient not found', async () => {
       mockPatientRepository.findByUserId.mockResolvedValue(null);
 
-      await expect(patientService.getPatientByUserId('user-123')).rejects.toThrow('PATIENT_NOT_FOUND');
+      await expect(patientService.getPatientByUserId('user-123')).rejects.toThrow(
+        'PATIENT_NOT_FOUND'
+      );
     });
   });
 
@@ -89,14 +99,18 @@ describe('PatientService', () => {
     it('should throw error if patient not found', async () => {
       mockPatientRepository.findById.mockResolvedValue(null);
 
-      await expect(patientService.updatePatient('patient-123', {})).rejects.toThrow('PATIENT_NOT_FOUND');
+      await expect(patientService.updatePatient('patient-123', {})).rejects.toThrow(
+        'PATIENT_NOT_FOUND'
+      );
     });
 
     it('should throw error if update failed', async () => {
       mockPatientRepository.findById.mockResolvedValue({ id: '1' } as any);
       mockPatientRepository.update.mockResolvedValue(null);
 
-      await expect(patientService.updatePatient('patient-123', {})).rejects.toThrow('UPDATE_FAILED');
+      await expect(patientService.updatePatient('patient-123', {})).rejects.toThrow(
+        'UPDATE_FAILED'
+      );
     });
   });
 
@@ -112,7 +126,9 @@ describe('PatientService', () => {
     it('should throw error if patient not found', async () => {
       mockPatientRepository.findById.mockResolvedValue(null);
 
-      await expect(patientService.deletePatient('patient-123')).rejects.toThrow('PATIENT_NOT_FOUND');
+      await expect(patientService.deletePatient('patient-123')).rejects.toThrow(
+        'PATIENT_NOT_FOUND'
+      );
     });
   });
 

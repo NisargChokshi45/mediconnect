@@ -32,13 +32,11 @@ describe('Note Routes', () => {
       const mockNote = { id: 'n1' };
       (NoteService.prototype.createNote as jest.Mock).mockResolvedValue(mockNote);
 
-      const response = await request(app)
-        .post('/notes')
-        .send({
-          appointmentId: '550e8400-e29b-41d4-a716-446655440000',
-          doctorId: '550e8400-e29b-41d4-a716-446655440001',
-          chiefComplaint: 'Pain'
-        });
+      const response = await request(app).post('/notes').send({
+        appointmentId: '550e8400-e29b-41d4-a716-446655440000',
+        doctorId: '550e8400-e29b-41d4-a716-446655440001',
+        chiefComplaint: 'Pain',
+      });
 
       expect(response.status).toBe(201);
     });
@@ -93,7 +91,11 @@ describe('Note Routes', () => {
   describe('Error Catch Blocks', () => {
     it('should handle POST error', async () => {
       (NoteService.prototype.createNote as jest.Mock).mockRejectedValue(new Error('fail'));
-      const response = await request(app).post('/notes').send({ appointmentId: '550e8400-e29b-41d4-a716-446655440000', doctorId: '550e8400-e29b-41d4-a716-446655440001', chiefComplaint: 'Pain' });
+      const response = await request(app).post('/notes').send({
+        appointmentId: '550e8400-e29b-41d4-a716-446655440000',
+        doctorId: '550e8400-e29b-41d4-a716-446655440001',
+        chiefComplaint: 'Pain',
+      });
       expect(response.status).toBe(500);
     });
 
@@ -104,7 +106,9 @@ describe('Note Routes', () => {
     });
 
     it('should handle GET by appointment error', async () => {
-      (NoteService.prototype.getNotesByAppointmentId as jest.Mock).mockRejectedValue(new Error('fail'));
+      (NoteService.prototype.getNotesByAppointmentId as jest.Mock).mockRejectedValue(
+        new Error('fail')
+      );
       const response = await request(app).get('/notes/appointment/a1');
       expect(response.status).toBe(500);
     });

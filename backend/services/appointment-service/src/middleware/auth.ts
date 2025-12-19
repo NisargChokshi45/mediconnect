@@ -37,7 +37,7 @@ export const authMiddleware = async (req: AuthRequest, res: Response, next: Next
       error: { code: 'AUTH_FAILED', message: 'Authentication failed' },
     });
   }
-}
+};
 
 export const requireRole = (roles: string[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -49,4 +49,4 @@ export const requireRole = (roles: string[]) => {
     }
     next();
   };
-}
+};

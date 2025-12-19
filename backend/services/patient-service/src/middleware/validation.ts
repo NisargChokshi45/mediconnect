@@ -20,4 +20,4 @@ export const validateRequest = (schema: ZodSchema) => {
       next(error);
     }
   };
-}
+};
