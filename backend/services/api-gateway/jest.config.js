@@ -6,11 +6,6 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/src/tests/setup.ts'],
   collectCoverageFrom: [
     'src/**/*.ts',
-    '!src/**/*.test.ts',
-    '!src/server.ts',
-    '!src/docs/**/*.ts',
-    '!src/tests/**/*.ts',
-    '!src/config/index.ts',
   ],
   coverageThreshold: {
     global: {
