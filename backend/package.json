@@ -9,6 +9,9 @@
     "docker:logs": "docker-compose logs -f",
     "docker:restart": "docker-compose restart",
     "services:install": "cd services/auth-service && npm install && cd ../patient-service && npm install && cd ../doctor-service && npm install && cd ../appointment-service && npm install && cd ../notes-service && npm install && cd ../api-gateway && npm install",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
+    "format:services": "npm run format --workspaces",
     "help": "echo 'Available commands:\n  npm run docker:up - Start all services\n  npm run docker:down - Stop all services\n  npm run docker:logs - View logs\n  \nTo run individual services:\n  cd services/<service-name> && npm run dev'"
   },
   "keywords": [
@@ -19,5 +22,8 @@
     "typeorm"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^3.1.1"
+  }
 }
