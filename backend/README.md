@@ -58,9 +58,6 @@ Each service is a standalone Node.js + TypeScript application with:
 ```
 backend/
 ├── docker-compose.yml       # Orchestrates all services
-├── shared/                  # Shared utilities
-│   ├── logger.ts           # PHI-safe logging
-│   └── types.ts            # Common types
 └── services/
     ├── auth-service/        # ✅ Complete
     ├── patient-service/     # ✅ Complete

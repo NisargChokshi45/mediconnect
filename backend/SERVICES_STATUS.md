@@ -63,13 +63,6 @@
 - Automatic restart policies
 - Volume persistence
 
-### ✅ Shared Infrastructure
-
-- PHI-safe logging utility (Winston)
-- Common types and enums
-- Service response interfaces
-- JWT payload interfaces
-
 ### ✅ CI/CD
 
 - GitHub Actions workflow

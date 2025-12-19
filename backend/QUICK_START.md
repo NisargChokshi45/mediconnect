@@ -164,9 +164,6 @@ docker-compose restart
 ```
 backend/
 ├── docker-compose.yml       # Orchestration
-├── shared/                  # Shared utilities
-│   ├── logger.ts           # PHI-safe logging
-│   └── types.ts            # Common types
 └── services/
     ├── auth-service/       # ✅ Complete
     ├── patient-service/    # ✅ Complete

@@ -53,7 +53,6 @@ I've successfully completed the entire Mediconnect microservices backend impleme
 ### 🏗️ Infrastructure
 
 - **Docker Compose**: Orchestration for all services + 5 PostgreSQL databases + Jaeger
-- **Shared Utilities**: PHI-safe logging, common types, service responses
 - **CI/CD**: GitHub Actions pipeline with linting and Docker builds
 - **Documentation**: Comprehensive READMEs, quick start guides
 
@@ -169,7 +168,6 @@ These are optional enhancements that can be added next:
 - **Appointment Service**: 16 files (includes circuit breaker)
 - **Notes Service**: 14 files (includes SOAP format)
 - **API Gateway**: 13 files (includes all route proxies)
-- **Shared**: 3 files (logger, types)
 - **Infrastructure**: Docker Compose, CI/CD, docs
 - **Total**: 120+ files
 
@@ -178,7 +176,7 @@ These are optional enhancements that can be added next:
 1. **True Microservices** - Separate databases, independent deployment
 2. **TypeORM** - As requested instead of Prisma
 3. **Circuit Breaker** - Opossum for insurance API resilience
-4. **PHI Safety** - Automatic log sanitization built into shared logger
+4. **PHI Safety** - Automatic log sanitization built into logger
 5. **Inter-Service Auth** - All services validate JWTs with auth service
 6. **SOAP Format** - Standard clinical notes format
 7. **Docker First** - Easy local development and deployment

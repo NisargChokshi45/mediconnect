@@ -93,7 +93,7 @@ export function createLogger(serviceName: string, logLevel: string = 'info') {
         format: winston.format.combine(
           winston.format.colorize(),
           winston.format.printf(({ timestamp, level, message, service, ...meta }) => {
-            const metaStr = Object.keys(meta).length ? JSON.stringify(meta, null, 2) : '';
+            const metaStr = JSON.stringify(meta, null, 2);
             return `${timestamp} [${service}] [${level}]: ${message} ${metaStr}`;
           })
         ),
